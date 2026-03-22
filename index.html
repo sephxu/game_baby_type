@@ -260,33 +260,166 @@
     }, { capture: true });
 
     const LETTER_MAP = {
-      a: { emoji: '🍎', word: 'Apple', color: '#E07070' },
-      b: { emoji: '🐻', word: 'Bear', color: '#C0956C' },
-      c: { emoji: '🐱', word: 'Cat', color: '#E8A060' },
-      d: { emoji: '🐶', word: 'Dog', color: '#C09860' },
-      e: { emoji: '🐘', word: 'Elephant', color: '#A0A0B0' },
-      f: { emoji: '🐟', word: 'Fish', color: '#70A0D0' },
-      g: { emoji: '🍇', word: 'Grape', color: '#9070B0' },
-      h: { emoji: '🐴', word: 'Horse', color: '#B08860' },
-      i: { emoji: '🍦', word: 'Ice Cream', color: '#E0B0C0' },
-      j: { emoji: '🪼', word: 'Jellyfish', color: '#B070D0' },
-      k: { emoji: '🪁', word: 'Kite', color: '#70B0D0' },
-      l: { emoji: '🦁', word: 'Lion', color: '#D0A040' },
-      m: { emoji: '🌙', word: 'Moon', color: '#E0D070' },
-      n: { emoji: '🥜', word: 'Nut', color: '#C0A070' },
-      o: { emoji: '🐙', word: 'Octopus', color: '#D07090' },
-      p: { emoji: '🐧', word: 'Penguin', color: '#606080' },
-      q: { emoji: '👑', word: 'Queen', color: '#D0B040' },
-      r: { emoji: '🌈', word: 'Rainbow', color: '#D08080' },
-      s: { emoji: '☀️', word: 'Sun', color: '#E0C040' },
-      t: { emoji: '🐯', word: 'Tiger', color: '#E0A040' },
-      u: { emoji: '☂️', word: 'Umbrella', color: '#7080C0' },
-      v: { emoji: '🎻', word: 'Violin', color: '#A07050' },
-      w: { emoji: '🐋', word: 'Whale', color: '#5090B0' },
-      x: { emoji: '🎵', word: 'Xylophone', color: '#C07090' },
-      y: { emoji: '🧶', word: 'Yarn', color: '#D08090' },
-      z: { emoji: '🦓', word: 'Zebra', color: '#707070' }
+      a: [
+        { emoji: '🍎', word: 'Apple', color: '#E07070' },
+        { emoji: '🐜', word: 'Ant', color: '#8B6040' },
+        { emoji: '✈️', word: 'Airplane', color: '#70A0D0' },
+        { emoji: '🥑', word: 'Avocado', color: '#6B8E50' },
+        { emoji: '🐊', word: 'Alligator', color: '#5F8B4C' },
+      ],
+      b: [
+        { emoji: '🐻', word: 'Bear', color: '#C0956C' },
+        { emoji: '🍌', word: 'Banana', color: '#E0C040' },
+        { emoji: '🐦', word: 'Bird', color: '#70A0D0' },
+        { emoji: '🦋', word: 'Butterfly', color: '#B070D0' },
+        { emoji: '🚌', word: 'Bus', color: '#E0A040' },
+      ],
+      c: [
+        { emoji: '🐱', word: 'Cat', color: '#E8A060' },
+        { emoji: '🚗', word: 'Car', color: '#E07070' },
+        { emoji: '🎂', word: 'Cake', color: '#E0B0C0' },
+        { emoji: '🐄', word: 'Cow', color: '#A09070' },
+        { emoji: '🍪', word: 'Cookie', color: '#C0956C' },
+      ],
+      d: [
+        { emoji: '🐶', word: 'Dog', color: '#C09860' },
+        { emoji: '🦆', word: 'Duck', color: '#E0C040' },
+        { emoji: '🐬', word: 'Dolphin', color: '#5090B0' },
+        { emoji: '🦕', word: 'Dinosaur', color: '#70B080' },
+        { emoji: '🍩', word: 'Donut', color: '#D08060' },
+      ],
+      e: [
+        { emoji: '🐘', word: 'Elephant', color: '#A0A0B0' },
+        { emoji: '🥚', word: 'Egg', color: '#E0D8C0' },
+        { emoji: '🦅', word: 'Eagle', color: '#8B6040' },
+        { emoji: '👁️', word: 'Eye', color: '#70A0D0' },
+      ],
+      f: [
+        { emoji: '🐟', word: 'Fish', color: '#70A0D0' },
+        { emoji: '🐸', word: 'Frog', color: '#60A060' },
+        { emoji: '🌸', word: 'Flower', color: '#E0A0B0' },
+        { emoji: '🦊', word: 'Fox', color: '#E08040' },
+        { emoji: '🦩', word: 'Flamingo', color: '#E07090' },
+      ],
+      g: [
+        { emoji: '🍇', word: 'Grape', color: '#9070B0' },
+        { emoji: '🦒', word: 'Giraffe', color: '#D0A040' },
+        { emoji: '🐐', word: 'Goat', color: '#A09070' },
+        { emoji: '👻', word: 'Ghost', color: '#B0B0C0' },
+        { emoji: '🦍', word: 'Gorilla', color: '#606060' },
+      ],
+      h: [
+        { emoji: '🐴', word: 'Horse', color: '#B08860' },
+        { emoji: '🏠', word: 'House', color: '#E08060' },
+        { emoji: '❤️', word: 'Heart', color: '#E07070' },
+        { emoji: '🦛', word: 'Hippo', color: '#A090B0' },
+        { emoji: '🐔', word: 'Hen', color: '#C09860' },
+      ],
+      i: [
+        { emoji: '🍦', word: 'Ice Cream', color: '#E0B0C0' },
+        { emoji: '🦎', word: 'Iguana', color: '#60A060' },
+        { emoji: '🐛', word: 'Insect', color: '#90B060' },
+      ],
+      j: [
+        { emoji: '🪼', word: 'Jellyfish', color: '#B070D0' },
+        { emoji: '🧃', word: 'Juice', color: '#E0A040' },
+        { emoji: '🤡', word: 'Joker', color: '#E07070' },
+      ],
+      k: [
+        { emoji: '🪁', word: 'Kite', color: '#70B0D0' },
+        { emoji: '🐨', word: 'Koala', color: '#A0A0B0' },
+        { emoji: '🔑', word: 'Key', color: '#D0B040' },
+        { emoji: '🤴', word: 'King', color: '#D0A040' },
+        { emoji: '🦘', word: 'Kangaroo', color: '#C09860' },
+      ],
+      l: [
+        { emoji: '🦁', word: 'Lion', color: '#D0A040' },
+        { emoji: '🍃', word: 'Leaf', color: '#60A060' },
+        { emoji: '🍋', word: 'Lemon', color: '#E0D040' },
+        { emoji: '🐞', word: 'Ladybug', color: '#E07070' },
+        { emoji: '🍭', word: 'Lollipop', color: '#D070B0' },
+      ],
+      m: [
+        { emoji: '🌙', word: 'Moon', color: '#E0D070' },
+        { emoji: '🐵', word: 'Monkey', color: '#C0956C' },
+        { emoji: '🐭', word: 'Mouse', color: '#A0A0B0' },
+        { emoji: '🥛', word: 'Milk', color: '#D0D0E0' },
+        { emoji: '🍄', word: 'Mushroom', color: '#D07060' },
+      ],
+      n: [
+        { emoji: '🥜', word: 'Nut', color: '#C0A070' },
+        { emoji: '👃', word: 'Nose', color: '#E0B090' },
+        { emoji: '🪺', word: 'Nest', color: '#B09060' },
+      ],
+      o: [
+        { emoji: '🐙', word: 'Octopus', color: '#D07090' },
+        { emoji: '🍊', word: 'Orange', color: '#E09030' },
+        { emoji: '🦉', word: 'Owl', color: '#B08860' },
+        { emoji: '🦦', word: 'Otter', color: '#A08060' },
+      ],
+      p: [
+        { emoji: '🐧', word: 'Penguin', color: '#606080' },
+        { emoji: '🐷', word: 'Pig', color: '#E0A0B0' },
+        { emoji: '🍕', word: 'Pizza', color: '#E0A040' },
+        { emoji: '🐼', word: 'Panda', color: '#707070' },
+        { emoji: '🍑', word: 'Peach', color: '#E0A080' },
+      ],
+      q: [
+        { emoji: '👑', word: 'Queen', color: '#D0B040' },
+        { emoji: '🐦', word: 'Quail', color: '#B09070' },
+      ],
+      r: [
+        { emoji: '🌈', word: 'Rainbow', color: '#D08080' },
+        { emoji: '🐰', word: 'Rabbit', color: '#E0B0C0' },
+        { emoji: '🚀', word: 'Rocket', color: '#E07050' },
+        { emoji: '🌹', word: 'Rose', color: '#D06070' },
+        { emoji: '🤖', word: 'Robot', color: '#A0A0B0' },
+      ],
+      s: [
+        { emoji: '☀️', word: 'Sun', color: '#E0C040' },
+        { emoji: '⭐', word: 'Star', color: '#E0D040' },
+        { emoji: '🐍', word: 'Snake', color: '#60A060' },
+        { emoji: '🍓', word: 'Strawberry', color: '#E06060' },
+        { emoji: '🐑', word: 'Sheep', color: '#C0C0C0' },
+      ],
+      t: [
+        { emoji: '🐯', word: 'Tiger', color: '#E0A040' },
+        { emoji: '🌳', word: 'Tree', color: '#60A060' },
+        { emoji: '🚂', word: 'Train', color: '#E07050' },
+        { emoji: '🐢', word: 'Turtle', color: '#60A080' },
+        { emoji: '🍅', word: 'Tomato', color: '#E06040' },
+      ],
+      u: [
+        { emoji: '☂️', word: 'Umbrella', color: '#7080C0' },
+        { emoji: '🦄', word: 'Unicorn', color: '#D070D0' },
+      ],
+      v: [
+        { emoji: '🎻', word: 'Violin', color: '#A07050' },
+        { emoji: '🌋', word: 'Volcano', color: '#E07050' },
+        { emoji: '🚐', word: 'Van', color: '#70A0D0' },
+      ],
+      w: [
+        { emoji: '🐋', word: 'Whale', color: '#5090B0' },
+        { emoji: '🍉', word: 'Watermelon', color: '#60A060' },
+        { emoji: '🐺', word: 'Wolf', color: '#808090' },
+        { emoji: '🪱', word: 'Worm', color: '#D08080' },
+      ],
+      x: [
+        { emoji: '🎵', word: 'Xylophone', color: '#C07090' },
+      ],
+      y: [
+        { emoji: '🧶', word: 'Yarn', color: '#D08090' },
+        { emoji: '🪀', word: 'Yo-yo', color: '#E07050' },
+      ],
+      z: [
+        { emoji: '🦓', word: 'Zebra', color: '#707070' },
+        { emoji: '⚡', word: 'Zap', color: '#E0D040' },
+      ]
     };
+
+    function randomPick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
 
     const NUMBER_MAP = {
       0: { emoji: '🌟', word: 'Zero', zh: '零' },
@@ -521,7 +654,7 @@
     function startChallenge() {
       challengeTarget = recentKeys[Math.floor(Math.random() * recentKeys.length)];
       challengeActive = true;
-      const data = LETTER_MAP[challengeTarget];
+      const data = randomPick(LETTER_MAP[challengeTarget]);
       challengeOverlay.innerHTML = `
         <div class="target-letter" style="color: ${data.color}">${challengeTarget.toUpperCase()}</div>
         <div class="challenge-emoji">${data.emoji}</div>
@@ -570,7 +703,7 @@
     }
 
     function showLetterCard(key, isRepeat = false) {
-      const data = LETTER_MAP[key];
+      const data = randomPick(LETTER_MAP[key]);
       letterEl.textContent = key.toUpperCase();
       letterEl.style.color = data.color;
       emojiWordEl.textContent = `${data.emoji} ${data.word}`;
