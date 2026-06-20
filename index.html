@@ -217,6 +217,36 @@
       transition: width 0.1s linear;
     }
 
+    #flower-collection {
+      position: fixed;
+      top: 3.2rem;
+      right: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-content: flex-start;
+      gap: 0.15rem;
+      max-width: 34vw;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    .flower-item {
+      font-size: 1.6rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .flower-item.flower-new {
+      animation: flowerPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes flowerPop {
+      0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+      60% { transform: scale(1.4) rotate(12deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
     @media (max-width: 768px) {
       #letter {
         font-size: 30vw;
@@ -242,6 +272,7 @@
     </div>
     <div id="particles"></div>
     <div id="challenge-overlay"></div>
+    <div id="flower-collection"></div>
     <div id="parent-btn">&#9881;</div>
     <div id="parent-panel">
       <h3>Settings</h3>
@@ -565,22 +596,39 @@
       } catch (e) { /* silent fail */ }
     }
 
-    function playCheer() {
+    function playFanfare() {
       if (isMuted) return;
       try {
         const ctx = getAudioCtx();
-        const chord = [523, 659, 784, 1047];
+        // 上行琶音
+        const seq = [523, 659, 784, 1047, 1319];
+        seq.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.value = freq;
+          const t = ctx.currentTime + i * 0.1;
+          gain.gain.setValueAtTime(0.12, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.25);
+        });
+        // 收尾持续和弦
+        const chord = [523, 659, 784, 1047, 1319];
+        const t0 = ctx.currentTime + 0.55;
         chord.forEach((freq) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'sine';
           osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.08, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+          gain.gain.setValueAtTime(0.09, t0);
+          gain.gain.exponentialRampToValueAtTime(0.001, t0 + 1.1);
           osc.connect(gain);
           gain.connect(ctx.destination);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.8);
+          osc.start(t0);
+          osc.stop(t0 + 1.1);
         });
       } catch (e) { /* silent fail */ }
     }
@@ -649,6 +697,61 @@
     }
 
     const challengeOverlay = document.getElementById('challenge-overlay');
+
+    // —— 小红花收集区 ——
+    const FLOWER_CAP = 30;
+    const flowerCollection = document.getElementById('flower-collection');
+    let flowerCount = (function () {
+      try { return parseInt(localStorage.getItem('flowerCount') || '0', 10); }
+      catch (e) { return 0; }
+    })();
+
+    function addFlowerEl(animate) {
+      const f = document.createElement('div');
+      f.className = 'flower-item' + (animate ? ' flower-new' : '');
+      f.textContent = '🌸';
+      flowerCollection.appendChild(f);
+      while (flowerCollection.children.length > FLOWER_CAP) {
+        flowerCollection.removeChild(flowerCollection.firstChild);
+      }
+    }
+
+    function renderFlowers() {
+      flowerCollection.innerHTML = '';
+      const shown = Math.min(flowerCount, FLOWER_CAP);
+      for (let i = 0; i < shown; i++) addFlowerEl(false);
+    }
+
+    function addFlower() {
+      flowerCount++;
+      try { localStorage.setItem('flowerCount', flowerCount); } catch (e) { /* ignore */ }
+      addFlowerEl(true);
+    }
+
+    renderFlowers();
+
+    // —— 挑战成功庆祝：增强音效 + 动效 + 收集小花 ——
+    function celebrate() {
+      playFanfare();
+      requestAnimationFrame(() => {
+        const rect = letterCard.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        spawnParticles(50, cx, cy);
+        const emojis = ['🎉', '🌸', '⭐', '✨', '🎈', '🌟', '💐'];
+        for (let i = 0; i < 10; i++) {
+          const b = document.createElement('div');
+          b.className = 'surprise-bubble';
+          b.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          b.style.left = (cx + (Math.random() - 0.5) * 240) + 'px';
+          b.style.top = cy + 'px';
+          b.style.fontSize = (2 + Math.random() * 1.5) + 'rem';
+          particlesEl.appendChild(b);
+          b.addEventListener('animationend', () => b.remove());
+        }
+      });
+      addFlower();
+    }
 
     function trackKeyPress(key) {
       if (/^[a-z]$/.test(key) && !recentKeys.includes(key)) {
@@ -727,8 +830,7 @@
       challengeOverlay.classList.remove('active');
 
       if (success) {
-        playCheer();
-        emitCardParticles(30);
+        celebrate();
       }
     }
 
