@@ -445,6 +445,7 @@
     let challengeActive = false;
     let challengeTarget = null;
     let challengeTimer = null;
+    let challengeData = null; // { key, data } — 提示图片对应的单词，命中后用于展示
     let recentKeys = [];
     let challengeEnabled = true;
     const CHALLENGE_TRIGGER = 15 + Math.floor(Math.random() * 6); // 15-20
@@ -460,11 +461,17 @@
 
       if (!isRepeat) {
         trackKeyPress(key);
-        checkChallenge(key);
       }
 
       if (LETTER_MAP[key]) {
-        showLetterCard(key, isRepeat);
+        // 命中挑战字母时，展示提示图片对应的单词
+        let forcedData = null;
+        if (!isRepeat && challengeActive && key === challengeTarget) {
+          forcedData = challengeData ? challengeData.data : null;
+          clearTimeout(challengeTimer);
+          endChallenge(true);
+        }
+        showLetterCard(key, isRepeat, forcedData);
       } else if (key >= '0' && key <= '9') {
         showNumberCard(key, isRepeat);
       } else {
@@ -655,6 +662,7 @@
       challengeTarget = recentKeys[Math.floor(Math.random() * recentKeys.length)];
       challengeActive = true;
       const data = randomPick(LETTER_MAP[challengeTarget]);
+      challengeData = { key: challengeTarget, data };
       challengeOverlay.innerHTML = `
         <div class="target-letter" style="color: ${data.color}">${challengeTarget.toUpperCase()}</div>
         <div class="challenge-emoji">${data.emoji}</div>
@@ -680,19 +688,10 @@
       }, CHALLENGE_DURATION);
     }
 
-    function checkChallenge(key) {
-      if (!challengeActive) return false;
-      if (key === challengeTarget) {
-        clearTimeout(challengeTimer);
-        endChallenge(true);
-        return true;
-      }
-      return false;
-    }
-
     function endChallenge(success) {
       challengeActive = false;
       challengeTarget = null;
+      challengeData = null;
       clearInterval(challengeInterval);
       challengeOverlay.classList.remove('active');
 
@@ -702,14 +701,14 @@
       }
     }
 
-    function showLetterCard(key, isRepeat = false) {
-      const data = randomPick(LETTER_MAP[key]);
+    function showLetterCard(key, isRepeat = false, forcedData = null) {
+      const data = forcedData || randomPick(LETTER_MAP[key]);
       letterEl.textContent = key.toUpperCase();
       letterEl.style.color = data.color;
       emojiWordEl.textContent = `${data.emoji} ${data.word}`;
       triggerCardAnimation();
       emitCardParticles();
-      playDing(600 + Math.random() * 400);
+      if (!forcedData) playDing(600 + Math.random() * 400);
       if (!isRepeat) speak(key.toUpperCase() + ' ... ' + data.word);
       promptEl.style.display = 'none';
     }
