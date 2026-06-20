@@ -971,24 +971,12 @@
     const parentPanel = document.getElementById('parent-panel');
     const muteToggle = document.getElementById('mute-toggle');
     const challengeToggle = document.getElementById('challenge-toggle');
-    let pressTimer = null;
 
-    parentBtn.addEventListener('mousedown', () => {
-      pressTimer = setTimeout(() => {
-        parentPanel.classList.toggle('open');
-      }, 3000);
+    // 单击齿轮切换设置面板
+    parentBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      parentPanel.classList.toggle('open');
     });
-    parentBtn.addEventListener('mouseup', () => clearTimeout(pressTimer));
-    parentBtn.addEventListener('mouseleave', () => clearTimeout(pressTimer));
-
-    // Touch events for mobile
-    parentBtn.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      pressTimer = setTimeout(() => {
-        parentPanel.classList.toggle('open');
-      }, 3000);
-    });
-    parentBtn.addEventListener('touchend', () => clearTimeout(pressTimer));
 
     // Close panel when clicking outside
     document.addEventListener('click', (e) => {
