@@ -462,7 +462,7 @@
       // Shift 键手动进入找字母挑战模式
       if (key === 'shift') {
         if (!isRepeat && challengeEnabled && !challengeActive) {
-          startChallenge();
+          startChallenge(true);
         }
         return;
       }
@@ -658,43 +658,64 @@
       keyPressCount++;
 
       if (challengeEnabled && !challengeActive && keyPressCount >= CHALLENGE_TRIGGER && recentKeys.length >= 3) {
-        startChallenge();
+        startChallenge(false);
         keyPressCount = 0;
       }
     }
 
     let challengeInterval = null;
-    const CHALLENGE_DURATION = 15000;
+    let recentChallengeTargets = []; // 最近 3 次挑战出现过的字母，用于避免重复
+    const CHALLENGE_DURATION = 60000; // 随机触发：60 秒倒计时
 
-    function startChallenge() {
-      const pool = recentKeys.length ? recentKeys : Object.keys(LETTER_MAP);
+    function startChallenge(isManual = false) {
+      // 候选池：优先用最近按过的字母，否则全部字母
+      let pool = recentKeys.length ? [...recentKeys] : Object.keys(LETTER_MAP);
+      // 排除最近 3 次挑战出现过的字母
+      pool = pool.filter(k => !recentChallengeTargets.includes(k));
+      if (!pool.length) {
+        pool = Object.keys(LETTER_MAP).filter(k => !recentChallengeTargets.includes(k));
+      }
+      if (!pool.length) pool = Object.keys(LETTER_MAP);
+
       challengeTarget = pool[Math.floor(Math.random() * pool.length)];
       challengeActive = true;
       const data = randomPick(LETTER_MAP[challengeTarget]);
       challengeData = { key: challengeTarget, data };
+
+      // 记入最近挑战字母历史，保留最近 3 个
+      recentChallengeTargets.push(challengeTarget);
+      if (recentChallengeTargets.length > 3) recentChallengeTargets.shift();
+
+      // 手动触发不设时限，隐藏倒计时进度条
+      const progressBar = isManual ? '' : `
+          <div class="progress-bar"><div class="progress-fill" id="challenge-progress"></div></div>`;
       challengeOverlay.innerHTML = `
         <div class="target-letter" style="color: ${data.color}">${challengeTarget.toUpperCase()}</div>
         <div class="challenge-emoji">${data.emoji}</div>
         <div class="challenge-info">
           <div class="challenge-label">Find this!</div>
-          <div class="progress-bar"><div class="progress-fill" id="challenge-progress"></div></div>
+          ${progressBar}
         </div>
       `;
       challengeOverlay.classList.add('active');
 
-      const startTime = Date.now();
-      const progressEl = document.getElementById('challenge-progress');
-      progressEl.style.width = '100%';
+      clearInterval(challengeInterval);
+      clearTimeout(challengeTimer);
 
-      challengeInterval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const pct = Math.max(0, 100 - (elapsed / CHALLENGE_DURATION) * 100);
-        progressEl.style.width = pct + '%';
-      }, 50);
+      if (!isManual) {
+        const startTime = Date.now();
+        const progressEl = document.getElementById('challenge-progress');
+        if (progressEl) progressEl.style.width = '100%';
+        challengeInterval = setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          const pct = Math.max(0, 100 - (elapsed / CHALLENGE_DURATION) * 100);
+          if (progressEl) progressEl.style.width = pct + '%';
+        }, 50);
 
-      challengeTimer = setTimeout(() => {
-        endChallenge(false);
-      }, CHALLENGE_DURATION);
+        challengeTimer = setTimeout(() => {
+          endChallenge(false);
+        }, CHALLENGE_DURATION);
+      }
     }
 
     function endChallenge(success) {
@@ -702,6 +723,7 @@
       challengeTarget = null;
       challengeData = null;
       clearInterval(challengeInterval);
+      clearTimeout(challengeTimer);
       challengeOverlay.classList.remove('active');
 
       if (success) {
