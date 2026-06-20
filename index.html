@@ -222,13 +222,39 @@
       top: 3.2rem;
       right: 0.8rem;
       display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+      max-width: 34vw;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    #flower-counter {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #c06070;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+    #flower-counter.bump {
+      animation: counterBump 0.4s ease-out;
+    }
+
+    @keyframes counterBump {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.35); }
+      100% { transform: scale(1); }
+    }
+
+    #flower-row {
+      display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
       align-content: flex-start;
       gap: 0.15rem;
       max-width: 34vw;
-      z-index: 15;
-      pointer-events: none;
     }
 
     .flower-item {
@@ -272,7 +298,10 @@
     </div>
     <div id="particles"></div>
     <div id="challenge-overlay"></div>
-    <div id="flower-collection"></div>
+    <div id="flower-collection">
+      <div id="flower-counter"></div>
+      <div id="flower-row"></div>
+    </div>
     <div id="parent-btn">&#9881;</div>
     <div id="parent-panel">
       <h3>Settings</h3>
@@ -700,33 +729,45 @@
     const challengeOverlay = document.getElementById('challenge-overlay');
 
     // —— 小红花收集区 ——
-    const FLOWER_CAP = 30;
-    const flowerCollection = document.getElementById('flower-collection');
+    const FLOWER_CAP = 30; // 花堆视觉上限，超出后循环替换；总数始终在徽标显示
+    const flowerRow = document.getElementById('flower-row');
+    const flowerCounter = document.getElementById('flower-counter');
     let flowerCount = (function () {
       try { return parseInt(localStorage.getItem('flowerCount') || '0', 10); }
       catch (e) { return 0; }
     })();
 
+    function updateFlowerCounter(bump) {
+      flowerCounter.textContent = '🌸 ×' + flowerCount;
+      if (bump) {
+        flowerCounter.classList.remove('bump');
+        void flowerCounter.offsetWidth; // 强制重排以重启动画
+        flowerCounter.classList.add('bump');
+      }
+    }
+
     function addFlowerEl(animate) {
       const f = document.createElement('div');
       f.className = 'flower-item' + (animate ? ' flower-new' : '');
       f.textContent = '🌸';
-      flowerCollection.appendChild(f);
-      while (flowerCollection.children.length > FLOWER_CAP) {
-        flowerCollection.removeChild(flowerCollection.firstChild);
+      flowerRow.appendChild(f);
+      while (flowerRow.children.length > FLOWER_CAP) {
+        flowerRow.removeChild(flowerRow.firstChild);
       }
     }
 
     function renderFlowers() {
-      flowerCollection.innerHTML = '';
+      flowerRow.innerHTML = '';
       const shown = Math.min(flowerCount, FLOWER_CAP);
       for (let i = 0; i < shown; i++) addFlowerEl(false);
+      updateFlowerCounter(false);
     }
 
     function addFlower() {
       flowerCount++;
       try { localStorage.setItem('flowerCount', flowerCount); } catch (e) { /* ignore */ }
       addFlowerEl(true);
+      updateFlowerCounter(true);
     }
 
     renderFlowers();
