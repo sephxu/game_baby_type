@@ -125,6 +125,30 @@
       margin-bottom: 1rem;
     }
 
+    #parent-panel .panel-divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 1rem 0;
+    }
+
+    #parent-panel .reset-btn {
+      display: block;
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 0.9rem;
+      color: #c05050;
+      background: #fff0f0;
+      border: 1px solid #e8b0b0;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    #parent-panel .reset-btn:active {
+      background: #ffe0e0;
+    }
+
     #prompt {
       position: absolute;
       bottom: 10vh;
@@ -307,6 +331,8 @@
       <h3>Settings</h3>
       <label><input type="checkbox" id="mute-toggle"> Mute</label>
       <label><input type="checkbox" id="challenge-toggle" checked> Challenge Mode</label>
+      <hr class="panel-divider">
+      <button class="reset-btn" id="flower-reset">Reset Flowers</button>
     </div>
     <div id="prompt">Press any key!</div>
   </div>
@@ -983,6 +1009,16 @@
         clearTimeout(challengeTimer);
         endChallenge(false);
       }
+    });
+
+    // 重置花朵收集
+    const flowerReset = document.getElementById('flower-reset');
+    flowerReset.addEventListener('click', (e) => {
+      e.stopPropagation();
+      flowerCount = 0;
+      try { localStorage.removeItem('flowerCount'); } catch (e2) { /* ignore */ }
+      flowerRow.innerHTML = '';
+      updateFlowerCounter(true);
     });
 
     // Touch support - tapping screen creates emoji bubbles at touch point
