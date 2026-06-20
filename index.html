@@ -502,17 +502,18 @@
         trackKeyPress(key);
       }
 
+      // 挑战命中检测（字母或数字），命中时展示提示图片对应的单词
+      let forcedData = null;
+      if (!isRepeat && challengeActive && key === challengeTarget) {
+        forcedData = challengeData ? challengeData.data : null;
+        clearTimeout(challengeTimer);
+        endChallenge(true);
+      }
+
       if (LETTER_MAP[key]) {
-        // 命中挑战字母时，展示提示图片对应的单词
-        let forcedData = null;
-        if (!isRepeat && challengeActive && key === challengeTarget) {
-          forcedData = challengeData ? challengeData.data : null;
-          clearTimeout(challengeTimer);
-          endChallenge(true);
-        }
         showLetterCard(key, isRepeat, forcedData);
       } else if (key >= '0' && key <= '9') {
-        showNumberCard(key, isRepeat);
+        showNumberCard(key, isRepeat, forcedData);
       } else {
         showSurprise(isRepeat);
       }
@@ -754,7 +755,7 @@
     }
 
     function trackKeyPress(key) {
-      if (/^[a-z]$/.test(key) && !recentKeys.includes(key)) {
+      if (/^[a-z0-9]$/.test(key) && !recentKeys.includes(key)) {
         recentKeys.push(key);
         if (recentKeys.length > 8) recentKeys.shift();
       }
@@ -767,25 +768,36 @@
     }
 
     let challengeInterval = null;
-    let recentChallengeTargets = []; // 最近 3 次挑战出现过的字母，用于避免重复
+    let recentChallengeTargets = []; // 最近 3 次挑战出现过的目标，用于避免重复
     const CHALLENGE_DURATION = 60000; // 随机触发：60 秒倒计时
 
     function startChallenge(isManual = false) {
-      // 候选池：优先用最近按过的字母，否则全部字母
-      let pool = recentKeys.length ? [...recentKeys] : Object.keys(LETTER_MAP);
-      // 排除最近 3 次挑战出现过的字母
-      pool = pool.filter(k => !recentChallengeTargets.includes(k));
-      if (!pool.length) {
-        pool = Object.keys(LETTER_MAP).filter(k => !recentChallengeTargets.includes(k));
-      }
-      if (!pool.length) pool = Object.keys(LETTER_MAP);
+      // 候选池：所有字母 + 所有数字，确保每个按键都可被挑战
+      const allTargets = Object.keys(LETTER_MAP).concat(Object.keys(NUMBER_MAP));
+      let pool = allTargets.filter(k => !recentChallengeTargets.includes(k));
+      if (!pool.length) pool = allTargets;
 
       challengeTarget = pool[Math.floor(Math.random() * pool.length)];
       challengeActive = true;
-      const data = randomPick(LETTER_MAP[challengeTarget]);
-      challengeData = { key: challengeTarget, data };
 
-      // 记入最近挑战字母历史，保留最近 3 个
+      const isNumber = /^\d$/.test(challengeTarget);
+      let emoji, color, displayChar;
+      if (isNumber) {
+        const num = parseInt(challengeTarget);
+        const nd = NUMBER_MAP[num];
+        emoji = nd.emoji;
+        color = '#E0C040';
+        displayChar = challengeTarget;
+        challengeData = { type: 'number', key: challengeTarget, data: nd };
+      } else {
+        const data = randomPick(LETTER_MAP[challengeTarget]);
+        emoji = data.emoji;
+        color = data.color;
+        displayChar = challengeTarget.toUpperCase();
+        challengeData = { type: 'letter', key: challengeTarget, data };
+      }
+
+      // 记入最近挑战历史，保留最近 3 个
       recentChallengeTargets.push(challengeTarget);
       if (recentChallengeTargets.length > 3) recentChallengeTargets.shift();
 
@@ -793,8 +805,8 @@
       const progressBar = isManual ? '' : `
           <div class="progress-bar"><div class="progress-fill" id="challenge-progress"></div></div>`;
       challengeOverlay.innerHTML = `
-        <div class="target-letter" style="color: ${data.color}">${challengeTarget.toUpperCase()}</div>
-        <div class="challenge-emoji">${data.emoji}</div>
+        <div class="target-letter" style="color: ${color}">${displayChar}</div>
+        <div class="challenge-emoji">${emoji}</div>
         <div class="challenge-info">
           <div class="challenge-label">Find this!</div>
           ${progressBar}
@@ -846,9 +858,9 @@
       promptEl.style.display = 'none';
     }
 
-    function showNumberCard(key, isRepeat = false) {
+    function showNumberCard(key, isRepeat = false, forcedData = null) {
       const num = parseInt(key);
-      const data = NUMBER_MAP[num];
+      const data = forcedData || NUMBER_MAP[num];
       letterEl.textContent = key;
       letterEl.style.color = '#E0C040';
       emojiWordEl.textContent = num === 0 ? data.emoji : data.emoji.repeat(num);
