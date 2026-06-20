@@ -459,6 +459,14 @@
 
       const key = e.key.toLowerCase();
 
+      // Shift 键手动进入找字母挑战模式
+      if (key === 'shift') {
+        if (!isRepeat && challengeEnabled && !challengeActive) {
+          startChallenge();
+        }
+        return;
+      }
+
       if (!isRepeat) {
         trackKeyPress(key);
       }
@@ -659,7 +667,8 @@
     const CHALLENGE_DURATION = 15000;
 
     function startChallenge() {
-      challengeTarget = recentKeys[Math.floor(Math.random() * recentKeys.length)];
+      const pool = recentKeys.length ? recentKeys : Object.keys(LETTER_MAP);
+      challengeTarget = pool[Math.floor(Math.random() * pool.length)];
       challengeActive = true;
       const data = randomPick(LETTER_MAP[challengeTarget]);
       challengeData = { key: challengeTarget, data };
