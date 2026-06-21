@@ -62,6 +62,30 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     }
 
+    #card-image {
+      display: none;
+      max-width: min(70vw, 360px);
+      max-height: 38vh;
+      object-fit: contain;
+      border-radius: 1rem;
+      margin-top: 0.8rem;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
+    }
+
+    #card-phrase {
+      display: none;
+      font-size: clamp(0.9rem, 1.8vw, 1.4rem);
+      color: #8a7a66;
+      margin-top: 0.6rem;
+      max-width: 80vw;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    #letter-card.image-mode #letter {
+      font-size: 11vw;
+    }
+
     #particles {
       position: absolute;
       top: 0;
@@ -306,6 +330,14 @@
         font-size: 6vw;
       }
 
+      #letter-card.image-mode #letter {
+        font-size: 18vw;
+      }
+
+      #card-image {
+        max-height: 32vh;
+      }
+
       #prompt {
         font-size: 4vw;
       }
@@ -317,7 +349,9 @@
     <div id="card-container">
       <div id="letter-card">
         <div id="letter"></div>
+        <img id="card-image" alt="">
         <div id="emoji-word"></div>
+        <div id="card-phrase"></div>
       </div>
     </div>
     <div id="particles"></div>
@@ -329,6 +363,12 @@
     <div id="parent-btn">&#9881;</div>
     <div id="parent-panel">
       <h3>Settings</h3>
+      <label>词汇库 Vocabulary
+        <select id="lib-select" style="display:block;width:100%;margin-top:0.3rem;padding:0.3rem;">
+          <option value="bluey">布鲁伊 Bluey</option>
+          <option value="classic">经典 Emoji</option>
+        </select>
+      </label>
       <label><input type="checkbox" id="mute-toggle"> Mute</label>
       <label><input type="checkbox" id="challenge-toggle" checked> Challenge Mode</label>
       <hr class="panel-divider">
@@ -503,6 +543,139 @@
       ]
     };
 
+    // —— 布鲁伊 Bluey 词汇库 ——
+    // 每张闪卡：{ word, phrase, color, emoji(兜底), img(可选，相对 basePath) }
+    const BLUEY_MAP = {
+      a: [
+        { word: 'Adventure', phrase: "Let's go on a big adventure!", img: 'a-adventure.jpg', emoji: '🏕️', color: '#7FB069' },
+        { word: 'Aeroplane', phrase: 'Dad is a flying aeroplane!', emoji: '✈️', color: '#70A0D0' },
+      ],
+      b: [
+        { word: 'Bluey', phrase: 'Bluey is a Blue Heeler pup.', img: 'b-bluey.png', emoji: '🐶', color: '#3A8DDE' },
+        { word: 'Bingo', phrase: "Bingo is Bluey's little sister.", img: 'b-bingo.png', emoji: '🧡', color: '#E8722C' },
+        { word: 'Bandit', phrase: "Bandit is Bluey's dad.", img: 'b-bandit.jpg', emoji: '🐕', color: '#2C5AA0' },
+        { word: 'Balloon', phrase: 'Keepy uppy with the balloon!', emoji: '🎈', color: '#E0506A' },
+      ],
+      c: [
+        { word: 'Chilli', phrase: "Chilli is Bluey's mum.", img: 'c-chilli.jpg', emoji: '🐾', color: '#C98A5E' },
+        { word: 'Car', phrase: 'Hop in the car!', img: 'c-car.png', emoji: '🚗', color: '#E07070' },
+        { word: 'Cubby', phrase: 'Play in the cubby house.', img: 'c-cubby.png', emoji: '🏠', color: '#8FAE5D' },
+        { word: 'Cricket', phrase: 'Time to play cricket!', img: 'c-cricket.png', emoji: '🏏', color: '#7FB069' },
+      ],
+      d: [
+        { word: 'Dad', phrase: 'Bandit is the best dad.', img: 'd-dad.png', emoji: '👨', color: '#2C5AA0' },
+        { word: 'Dragon', phrase: 'Roar! A friendly dragon.', img: 'd-dragon.png', emoji: '🐉', color: '#6BAF5A' },
+        { word: 'Dance', phrase: 'Dance mode, activated!', emoji: '💃', color: '#D070B0' },
+      ],
+      e: [
+        { word: 'Egg', phrase: 'Look at the colorful eggs!', emoji: '🥚', color: '#E0A0B0' },
+        { word: 'Elephant', phrase: 'A big gray elephant.', emoji: '🐘', color: '#A0A0B0' },
+      ],
+      f: [
+        { word: 'Family', phrase: 'The Heeler family!', img: 'f-family.jpg', emoji: '👨‍👩‍👧‍👧', color: '#3A8DDE' },
+        { word: 'Featherwand', phrase: "Mum's magic featherwand!", img: 'f-featherwand.png', emoji: '🪶', color: '#D0A040' },
+        { word: 'Floppy', phrase: 'Floppy the bunny.', emoji: '🐰', color: '#E0B0C0' },
+      ],
+      g: [
+        { word: 'Grannies', phrase: 'Janet and Rita, the grannies!', img: 'g-grannies.jpg', emoji: '👵', color: '#C080A0' },
+        { word: 'Game', phrase: "Let's play a fun game!", emoji: '🎲', color: '#E0A040' },
+      ],
+      h: [
+        { word: 'House', phrase: 'The Heeler house.', img: 'h-house.jpg', emoji: '🏠', color: '#E08060' },
+        { word: 'Hug', phrase: 'Big family hug!', img: 'h-hug.png', emoji: '🤗', color: '#E0808A' },
+        { word: 'Hallway', phrase: 'Run down the hallway.', img: 'h-hallway.png', emoji: '🚪', color: '#B08860' },
+      ],
+      i: [
+        { word: 'Indy', phrase: "Indy is Bluey's friend.", img: 'i-indy.jpg', emoji: '🐕', color: '#C0903A' },
+        { word: 'Ice cream', phrase: 'Yummy ice cream!', emoji: '🍦', color: '#E0B0C0' },
+      ],
+      j: [
+        { word: 'Jean-Luc', phrase: 'Jean-Luc from camping.', img: 'j-jeanluc.jpg', emoji: '🐕', color: '#3A6A3A' },
+        { word: 'Jump', phrase: 'Jump up so high!', emoji: '⬆️', color: '#70A0D0' },
+      ],
+      k: [
+        { word: 'Keepy Uppy', phrase: "Don't let it touch the ground!", emoji: '🎈', color: '#E0506A' },
+        { word: 'Kite', phrase: 'Fly the kite up high!', emoji: '🪁', color: '#70B0D0' },
+      ],
+      l: [
+        { word: 'Lucky', phrase: 'Lucky lives next door.', img: 'l-lucky.jpg', emoji: '🐕', color: '#D0A84A' },
+        { word: 'Leaf', phrase: 'A floating green leaf.', emoji: '🍃', color: '#60A060' },
+      ],
+      m: [
+        { word: 'Mum', phrase: 'Chilli is a great mum.', img: 'm-mum.png', emoji: '🐾', color: '#C98A5E' },
+        { word: 'Muffin', phrase: 'Muffin is the cousin.', img: 'm-muffin.png', emoji: '🐶', color: '#7AB0E0' },
+        { word: 'Mackenzie', phrase: 'Mackenzie at school.', img: 'm-mackenzie.jpg', emoji: '🐕', color: '#5A8BC0' },
+      ],
+      n: [
+        { word: 'Nana', phrase: 'Nana loves the kids.', img: 'n-nana.jpg', emoji: '👵', color: '#9A86C0' },
+        { word: 'Night', phrase: 'Sleepytime, good night.', emoji: '🌙', color: '#5A5A8A' },
+      ],
+      o: [
+        { word: 'Outside', phrase: "Let's play outside!", img: 'o-outside.jpg', emoji: '🌳', color: '#7FB069' },
+        { word: 'Orange', phrase: 'A round orange fruit.', emoji: '🍊', color: '#E09030' },
+      ],
+      p: [
+        { word: 'Polly', phrase: 'Polly the doll.', img: 'p-polly.png', emoji: '🪆', color: '#E0A0B0' },
+        { word: 'Pirates', phrase: 'Ahoy there, pirates!', img: 'p-pirates.png', emoji: '🏴‍☠️', color: '#606060' },
+        { word: 'Pool', phrase: 'Splash in the pool!', emoji: '🏊', color: '#5090B0' },
+      ],
+      q: [
+        { word: 'Queen', phrase: 'Bluey is the queen!', emoji: '👑', color: '#D0B040' },
+        { word: 'Quiet', phrase: 'Shhh, be quiet.', emoji: '🤫', color: '#90A0C0' },
+      ],
+      r: [
+        { word: 'Rusty', phrase: 'Rusty is a good friend.', img: 'r-rusty.jpg', emoji: '🐕', color: '#D08040' },
+        { word: 'Rainbow', phrase: 'A big bright rainbow!', emoji: '🌈', color: '#D08080' },
+      ],
+      s: [
+        { word: 'Socks', phrase: 'Socks is the little cousin.', img: 's-socks.jpg', emoji: '🐶', color: '#7AB0E0' },
+        { word: 'Sisters', phrase: 'Bluey and Bingo, sisters!', img: 's-sisters.png', emoji: '👯', color: '#E8722C' },
+        { word: 'Slide', phrase: 'Down the slide, wheee!', img: 's-slide.png', emoji: '🛝', color: '#E0A040' },
+        { word: 'Stripe', phrase: 'Uncle Stripe is here.', img: 's-stripe.jpg', emoji: '🐕', color: '#3A6AA0' },
+      ],
+      t: [
+        { word: 'Tablet', phrase: "Bingo's tablet.", img: 't-tablet.png', emoji: '📱', color: '#5A5A8A' },
+        { word: 'Trixie', phrase: 'Aunt Trixie.', img: 't-trixie.jpg', emoji: '🐩', color: '#C07090' },
+        { word: 'Tickle', phrase: 'Tickle crabs are coming!', emoji: '🦀', color: '#E07050' },
+      ],
+      u: [
+        { word: 'Unicorse', phrase: 'Unicorse, the grumpy toy!', emoji: '🦄', color: '#9070D0' },
+        { word: 'Umbrella', phrase: 'Under the umbrella.', emoji: '☂️', color: '#7080C0' },
+      ],
+      v: [
+        { word: 'Val', phrase: 'Grumpy old Nana Val.', img: 'v-val.png', emoji: '👵', color: '#B07090' },
+      ],
+      w: [
+        { word: 'Winton', phrase: 'Winton is at school.', img: 'w-winton.jpg', emoji: '🐶', color: '#9A7A5A' },
+        { word: 'Water', phrase: 'Play in the water!', img: 'w-water.jpg', emoji: '🌊', color: '#5090B0' },
+      ],
+      x: [
+        { word: 'Xylophone', phrase: 'The magic xylophone!', emoji: '🎵', color: '#C07090' },
+      ],
+      y: [
+        { word: 'Yawn', phrase: 'Big yawn, time for bed.', emoji: '🥱', color: '#7080A0' },
+        { word: 'Yellow', phrase: 'Yellow like the sun.', emoji: '🌞', color: '#E0C040' },
+      ],
+      z: [
+        { word: 'Zoo', phrase: 'A fun day at the zoo!', emoji: '🦓', color: '#707070' },
+        { word: 'Zoom', phrase: 'Zoom, zoom in the car!', img: 'z-zoom.png', emoji: '🚗', color: '#E07070' },
+      ],
+    };
+
+    // —— 多词汇库注册 ——
+    const LIBRARIES = {
+      bluey: { name: '布鲁伊 Bluey', render: 'image', basePath: 'assets/bluey/', map: BLUEY_MAP },
+      classic: { name: '经典 Emoji', render: 'emoji', basePath: '', map: LETTER_MAP },
+    };
+    let currentLibId = (function () {
+      try {
+        const v = localStorage.getItem('vocabLib');
+        return (v && LIBRARIES[v]) ? v : 'bluey';
+      } catch (e) { return 'bluey'; }
+    })();
+    function curLib() { return LIBRARIES[currentLibId]; }
+    function letterMap() { return curLib().map; }
+
     function randomPick(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
@@ -565,7 +738,7 @@
         endChallenge(true);
       }
 
-      if (LETTER_MAP[key]) {
+      if (letterMap()[key]) {
         showLetterCard(key, isRepeat, forcedData);
       } else if (key >= '0' && key <= '9') {
         showNumberCard(key, isRepeat, forcedData);
@@ -576,9 +749,19 @@
 
     const letterEl = document.getElementById('letter');
     const emojiWordEl = document.getElementById('emoji-word');
+    const cardImage = document.getElementById('card-image');
+    const cardPhrase = document.getElementById('card-phrase');
     const letterCard = document.getElementById('letter-card');
     const promptEl = document.getElementById('prompt');
     const particlesEl = document.getElementById('particles');
+
+    // 图片加载失败时回退到 emoji 文本
+    cardImage.addEventListener('error', () => {
+      cardImage.style.display = 'none';
+      letterCard.classList.remove('image-mode');
+      const d = cardImage._data;
+      if (d) emojiWordEl.textContent = `${d.emoji || ''} ${d.word}`.trim();
+    });
 
     function spawnParticles(count, x, y) {
       for (let i = 0; i < count; i++) {
@@ -840,7 +1023,7 @@
 
     function startChallenge(isManual = false) {
       // 候选池：所有字母 + 所有数字，确保每个按键都可被挑战
-      const allTargets = Object.keys(LETTER_MAP).concat(Object.keys(NUMBER_MAP));
+      const allTargets = Object.keys(letterMap()).concat(Object.keys(NUMBER_MAP));
       let pool = allTargets.filter(k => !recentChallengeTargets.includes(k));
       if (!pool.length) pool = allTargets;
 
@@ -857,7 +1040,7 @@
         displayChar = challengeTarget;
         challengeData = { type: 'number', key: challengeTarget, data: nd };
       } else {
-        const data = randomPick(LETTER_MAP[challengeTarget]);
+        const data = randomPick(letterMap()[challengeTarget]);
         emoji = data.emoji;
         color = data.color;
         displayChar = challengeTarget.toUpperCase();
@@ -914,20 +1097,50 @@
     }
 
     function showLetterCard(key, isRepeat = false, forcedData = null) {
-      const data = forcedData || randomPick(LETTER_MAP[key]);
+      const data = forcedData || randomPick(letterMap()[key]);
       letterEl.textContent = key.toUpperCase();
       letterEl.style.color = data.color;
-      emojiWordEl.textContent = `${data.emoji} ${data.word}`;
+
+      const useImg = curLib().render === 'image' && data.img;
+      cardImage._data = data;
+      if (useImg) {
+        cardImage.src = curLib().basePath + data.img;
+        cardImage.alt = data.word;
+        cardImage.style.display = 'block';
+        emojiWordEl.textContent = data.word;
+        letterCard.classList.add('image-mode');
+      } else {
+        cardImage.style.display = 'none';
+        emojiWordEl.textContent = `${data.emoji} ${data.word}`;
+        letterCard.classList.remove('image-mode');
+      }
+
+      if (data.phrase) {
+        cardPhrase.textContent = data.phrase;
+        cardPhrase.style.display = 'block';
+      } else {
+        cardPhrase.style.display = 'none';
+      }
+
       triggerCardAnimation();
       emitCardParticles();
       if (!forcedData) playDing(600 + Math.random() * 400);
-      if (!isRepeat) speak(key.toUpperCase() + ' ... ' + data.word);
+      if (!isRepeat) speakCard(key.toUpperCase(), data);
       promptEl.style.display = 'none';
+    }
+
+    function speakCard(letter, data) {
+      const items = [{ text: letter + ', ' + data.word, lang: 'en-US' }];
+      if (data.phrase) items.push({ text: data.phrase, lang: 'en-US' });
+      if (!isMuted && !isSpeaking) speakSequence(items);
     }
 
     function showNumberCard(key, isRepeat = false, forcedData = null) {
       const num = parseInt(key);
       const data = forcedData || NUMBER_MAP[num];
+      cardImage.style.display = 'none';
+      cardPhrase.style.display = 'none';
+      letterCard.classList.remove('image-mode');
       letterEl.textContent = key;
       letterEl.style.color = '#E0C040';
       emojiWordEl.textContent = num === 0 ? data.emoji : data.emoji.repeat(num);
@@ -941,8 +1154,11 @@
     function showSurprise(isRepeat = false) {
       // Hide the letter card
       letterCard.classList.remove('show');
+      letterCard.classList.remove('image-mode');
       letterEl.textContent = '';
       emojiWordEl.textContent = '';
+      cardImage.style.display = 'none';
+      cardPhrase.style.display = 'none';
 
       // Spawn 5-8 random emoji bubbles at random positions
       const count = Math.floor(Math.random() * 4) + 5;
@@ -971,6 +1187,28 @@
     const parentPanel = document.getElementById('parent-panel');
     const muteToggle = document.getElementById('mute-toggle');
     const challengeToggle = document.getElementById('challenge-toggle');
+    const libSelect = document.getElementById('lib-select');
+
+    // 预加载当前库的配图，避免首次翻卡闪烁
+    function preloadLibImages() {
+      const l = curLib();
+      if (l.render !== 'image') return;
+      Object.values(l.map).forEach(cards => cards.forEach(c => {
+        if (c.img) { const im = new Image(); im.src = l.basePath + c.img; }
+      }));
+    }
+
+    libSelect.value = currentLibId;
+    preloadLibImages();
+
+    libSelect.addEventListener('change', () => {
+      if (LIBRARIES[libSelect.value]) {
+        currentLibId = libSelect.value;
+        try { localStorage.setItem('vocabLib', currentLibId); } catch (e) { /* ignore */ }
+        preloadLibImages();
+        if (challengeActive) { clearTimeout(challengeTimer); endChallenge(false); }
+      }
+    });
 
     // 单击齿轮切换设置面板
     parentBtn.addEventListener('click', (e) => {
