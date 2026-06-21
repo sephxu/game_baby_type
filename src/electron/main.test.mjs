@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import test from 'node:test';
+
+const sourcePath = new URL('./main.ts', import.meta.url);
+
+test('electron main starts the existing local dev server on loopback', async () => {
+  const source = await readFile(sourcePath, 'utf8');
+
+  assert.match(source, /createDevServer/);
+  assert.match(source, /export async function startLocalServer/);
+  assert.match(source, /127\.0\.0\.1/);
+  assert.match(source, /loadURL\(serverInfo\.url\)/);
+});
