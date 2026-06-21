@@ -667,7 +667,7 @@ async function submitCustomWord() {
     customWordInput.value = '';
     setCustomWordStatus(`${word} saved for Codex.`, 'success');
   } catch (error) {
-    setCustomWordStatus('Start with: node scripts/dev_server.mjs', 'error');
+        setCustomWordStatus('Open with Game of Type.app or npm run electron.', 'error');
   } finally {
     customWordAdd.disabled = false;
   }
