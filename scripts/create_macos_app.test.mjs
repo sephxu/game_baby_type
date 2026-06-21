@@ -20,8 +20,9 @@ test('macOS app generator creates a double-click launcher for Electron', async (
   assert.match(source, /package-source/);
   assert.match(source, /dist-local-app/);
   assert.match(source, /Desktop/);
-  assert.match(source, /symlink/);
+  assert.match(source, /syncDesktopApp/);
   assert.match(source, /DESKTOP_APP_PATH/);
+  assert.doesNotMatch(source, /symlink/);
   assert.doesNotMatch(source, /@electron\/packager/);
   assert.doesNotMatch(source, /osacompile/);
   assert.doesNotMatch(source, /npm run electron/);

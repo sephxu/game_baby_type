@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { cp, lstat, mkdir, readFile, readlink, rename, rm, symlink, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -29,27 +29,10 @@ function run(command, args) {
   }
 }
 
-async function linkDesktopApp() {
+async function syncDesktopApp() {
   await mkdir(dirname(DESKTOP_APP_PATH), { recursive: true });
-
-  try {
-    const info = await lstat(DESKTOP_APP_PATH);
-    if (!info.isSymbolicLink()) {
-      throw new Error(`${DESKTOP_APP_PATH} already exists and is not a symlink. Remove it manually before relinking.`);
-    }
-    const currentTarget = await readlink(DESKTOP_APP_PATH);
-    if (resolve(dirname(DESKTOP_APP_PATH), currentTarget) !== APP_PATH) {
-      await rm(DESKTOP_APP_PATH, { force: true });
-    }
-  } catch (error) {
-    if (error.code !== 'ENOENT') throw error;
-  }
-
-  try {
-    await symlink(APP_PATH, DESKTOP_APP_PATH, 'dir');
-  } catch (error) {
-    if (error.code !== 'EEXIST') throw error;
-  }
+  await rm(DESKTOP_APP_PATH, { recursive: true, force: true });
+  run('/usr/bin/ditto', [APP_PATH, DESKTOP_APP_PATH]);
 }
 
 function setPlist(key, value) {
@@ -100,10 +83,10 @@ async function createMacApp() {
   setPlist('CFBundleIdentifier', 'local.game-of-type');
   setPlist('CFBundleIconFile', 'game-of-type.icns');
 
-  await linkDesktopApp();
+  await syncDesktopApp();
 
   console.log(`Created ${APP_PATH}`);
-  console.log(`Linked ${DESKTOP_APP_PATH} -> ${APP_PATH}`);
+  console.log(`Updated ${DESKTOP_APP_PATH}`);
 }
 
 createMacApp().catch(error => {
