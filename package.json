@@ -5,16 +5,17 @@
   "type": "module",
   "main": "dist-electron/main.js",
   "scripts": {
-    "test": "node --test scripts/*.test.mjs src/**/*.test.mjs",
+    "test": "node --import tsx --test scripts/*.test.mjs src/**/*.test.mjs",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build && npm run build:electron",
     "build:electron": "tsc -p tsconfig.electron.json",
     "electron": "npm run build:electron && electron dist-electron/main.js",
-    "electron:check": "npm run build:electron && node --test src/electron/main.test.mjs"
+    "electron:check": "npm run build:electron && node --import tsx --test src/electron/main.test.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.19.24",
     "electron": "^31.7.7",
+    "tsx": "^4.21.0",
     "typescript": "^5.5.4",
     "vite": "^5.4.21"
   }
