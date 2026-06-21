@@ -1,0 +1,23 @@
+{
+  "name": "game-of-type",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist-electron/src/electron/main.js",
+  "scripts": {
+    "test": "node --import tsx --test scripts/*.test.mjs src/**/*.test.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build && npm run build:electron",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "electron": "npm run build:electron && electron dist-electron/src/electron/main.js",
+    "electron:check": "npm run build:electron && electron --version && node --import tsx --test src/electron/main.test.mjs",
+    "app:mac": "node scripts/create_macos_app.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.24",
+    "electron": "^42.4.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.5.4",
+    "vite": "^8.0.16"
+  }
+}

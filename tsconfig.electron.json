@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "checkJs": false,
+    "strict": false,
+    "outDir": "dist-electron",
+    "rootDir": ".",
+    "skipLibCheck": true
+  },
+  "include": ["src/electron/**/*.ts", "scripts/dev_server.mjs", "scripts/pending_words.mjs"]
+}

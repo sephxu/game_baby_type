@@ -1,18 +1,17 @@
-// 从 index.html 中提取 LETTER_MAP（emoji 库）与 BLUEY_CARDS（bluey 库），
+// 从 src/data/cards.ts 中提取 LETTER_MAP（emoji 库）与 BLUEY_CARDS（bluey 库），
 // 输出 scripts/cards.json，供生成音频脚本使用。
-// spoken 文本格式与 index.html 中 showLetterCard 的逻辑保持一致。
+// spoken 文本格式与 src/data/cards.ts 中 spokenFor 的逻辑保持一致。
 import fs from 'node:fs';
 
-const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-
-// 取出 <script> 内容并在干净的沙箱里 eval，只取数据对象，不执行 DOM 逻辑。
-const scriptMatch = html.match(/<script>([\s\S]*?)<\/script>/);
-const script = scriptMatch[1];
+const source = fs.readFileSync(new URL('../src/data/cards.ts', import.meta.url), 'utf8');
 
 // 仅保留 LETTER_MAP 与 BLUEY_CARDS 数据声明部分，避免运行 DOM 代码。
-const start = script.indexOf('const LETTER_MAP = {');
-const cutAt = script.indexOf('// —— 多词汇库架构 ——');
-const dataSrc = script.slice(start, cutAt);
+const start = source.indexOf('export const LETTER_MAP');
+const cutAt = source.indexOf('export const DEFAULT_LIBRARY');
+const dataSrc = source
+  .slice(start, cutAt)
+  .replace(/export const LETTER_MAP:[^=]+=/, 'const LETTER_MAP =')
+  .replace(/export const BLUEY_CARDS:[^=]+=/, 'const BLUEY_CARDS =');
 
 const sandbox = {};
 const fn = new Function(dataSrc + '\nreturn { LETTER_MAP, BLUEY_CARDS };');

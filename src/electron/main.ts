@@ -1,0 +1,79 @@
+import { app, BrowserWindow } from 'electron';
+import { join, resolve } from 'node:path';
+import { createDevServer } from '../../scripts/dev_server.mjs';
+
+type LocalServerInfo = {
+  server: ReturnType<typeof createDevServer>;
+  url: string;
+};
+
+export function resolveAppRoot() {
+  if (app.isPackaged) return resolve(process.resourcesPath, 'app');
+  return process.cwd();
+}
+
+app.setName('Game of Type');
+
+export async function startLocalServer(rootDir = resolveAppRoot()): Promise<LocalServerInfo> {
+  const server = createDevServer({
+    rootDir,
+    staticDirs: [join(rootDir, 'dist'), rootDir],
+  });
+  const port = await new Promise<number>((resolvePort, reject) => {
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      server.off('error', reject);
+      const address = server.address();
+      if (!address || typeof address === 'string') {
+        reject(new Error('Unable to determine local server port.'));
+        return;
+      }
+      resolvePort(address.port);
+    });
+  });
+
+  return {
+    server,
+    url: `http://127.0.0.1:${port}/index.html`,
+  };
+}
+
+async function createWindow() {
+  const serverInfo = await startLocalServer();
+  const win = new BrowserWindow({
+    width: 1280,
+    height: 820,
+    title: 'Game of Type',
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
+  });
+
+  win.on('closed', () => {
+    serverInfo.server.close();
+  });
+
+  await win.loadURL(serverInfo.url);
+}
+
+async function main() {
+  if (process.argv.includes('--check')) {
+    console.log('Electron main check ok.');
+    process.exit(0);
+    return;
+  }
+
+  await app.whenReady();
+  await createWindow();
+}
+
+void main();
+
+app.on('window-all-closed', () => {
+  app.quit();
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) void createWindow();
+});

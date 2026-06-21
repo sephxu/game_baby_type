@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "word": "ba't",
+      "library": "bluey",
+      "status": "skipped",
+      "createdAt": "2026-06-21T15:54:24.269Z",
+      "reason": "Looks like an accidental duplicate of Bat."
+    },
+    {
+      "word": "bat",
+      "library": "bluey",
+      "status": "processed",
+      "createdAt": "2026-06-21T15:54:31.061Z",
+      "card": {
+        "word": "Bat",
+        "sentence": "A little bat flies.",
+        "image": "assets/bluey/bat.png",
+        "emoji": "🦇",
+        "color": "#7A5A78"
+      }
+    },
+    {
+      "word": "snail",
+      "library": "bluey",
+      "status": "processed",
+      "createdAt": "2026-06-21T15:54:43.845Z",
+      "card": {
+        "word": "Snail",
+        "sentence": "A slow snail crawls.",
+        "image": "assets/bluey/snail.png",
+        "emoji": "🐌",
+        "color": "#D0A040"
+      }
+    },
+    {
+      "word": "butterfiy",
+      "library": "bluey",
+      "status": "skipped",
+      "createdAt": "2026-06-21T15:54:52.386Z",
+      "reason": "Interpreted as Butterfly, which already exists in the Bluey vocabulary."
+    }
+  ]
+}
