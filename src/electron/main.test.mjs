@@ -35,3 +35,11 @@ test('development app root is the project working directory', async () => {
   assert.match(source, /return process\.cwd\(\)/);
   assert.doesNotMatch(source, /return resolve\(__dirname, '\.\.\/\.\.'\)/);
 });
+
+test('macOS app quits when the last window closes', async () => {
+  const source = await readFile(sourcePath, 'utf8');
+
+  assert.match(source, /app\.setName\('Game of Type'\)/);
+  assert.match(source, /app\.on\('window-all-closed'[\s\S]*app\.quit\(\)/);
+  assert.doesNotMatch(source, /process\.platform !== 'darwin'/);
+});

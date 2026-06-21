@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { lstat, mkdir, readlink, rm, symlink, writeFile } from 'node:fs/promises';
+import { cp, lstat, mkdir, readFile, readlink, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -7,12 +7,26 @@ import { homedir } from 'node:os';
 
 const ROOT_DIR = resolve(fileURLToPath(new URL('../', import.meta.url)));
 const OUT_DIR = join(ROOT_DIR, 'dist-local-app');
+const STAGING_DIR = join(OUT_DIR, 'package-source');
 const APP_PATH = join(OUT_DIR, 'Game of Type.app');
-const SCRIPT_PATH = join(OUT_DIR, 'launch-game-of-type.applescript');
 const DESKTOP_APP_PATH = join(homedir(), 'Desktop', 'Game of Type.app');
+const ELECTRON_TEMPLATE_APP = join(ROOT_DIR, 'node_modules', 'electron', 'dist', 'Electron.app');
+const ICON_PATH = join(ROOT_DIR, 'assets', 'app-icon', 'game-of-type.icns');
+const APP_RESOURCES_DIR = join(APP_PATH, 'Contents', 'Resources');
+const APP_SOURCE_DIR = join(APP_RESOURCES_DIR, 'app');
+const APP_EXECUTABLE = join(APP_PATH, 'Contents', 'MacOS', 'Game of Type');
+const ELECTRON_EXECUTABLE = join(APP_PATH, 'Contents', 'MacOS', 'Electron');
 
-function quoteAppleScript(value) {
-  return value.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+function run(command, args) {
+  const result = spawnSync(command, args, {
+    cwd: ROOT_DIR,
+    encoding: 'utf8',
+    stdio: 'inherit',
+  });
+
+  if (result.status !== 0) {
+    throw new Error(`${command} ${args.join(' ')} failed`);
+  }
 }
 
 async function linkDesktopApp() {
@@ -38,32 +52,53 @@ async function linkDesktopApp() {
   }
 }
 
+function setPlist(key, value) {
+  run('/usr/libexec/PlistBuddy', ['-c', `Set :${key} ${value}`, join(APP_PATH, 'Contents', 'Info.plist')]);
+}
+
+async function createStagingAppSource() {
+  await rm(STAGING_DIR, { recursive: true, force: true });
+  await mkdir(STAGING_DIR, { recursive: true });
+
+  const packageJson = JSON.parse(await readFile(join(ROOT_DIR, 'package.json'), 'utf8'));
+  await writeFile(join(STAGING_DIR, 'package.json'), JSON.stringify({
+    name: packageJson.name,
+    version: packageJson.version,
+    private: true,
+    type: 'module',
+    main: packageJson.main,
+  }, null, 2));
+
+  await cp(join(ROOT_DIR, 'dist'), join(STAGING_DIR, 'dist'), { recursive: true });
+  await cp(join(ROOT_DIR, 'dist-electron'), join(STAGING_DIR, 'dist-electron'), { recursive: true });
+  await cp(join(ROOT_DIR, 'assets'), join(STAGING_DIR, 'assets'), {
+    recursive: true,
+    filter: source => !source.includes(`${join('assets', 'app-icon', 'GameOfType.iconset')}`),
+  });
+  await cp(join(ROOT_DIR, 'data'), join(STAGING_DIR, 'data'), { recursive: true });
+}
+
 async function createMacApp() {
   if (process.platform !== 'darwin') {
     throw new Error('Game of Type.app can only be generated on macOS.');
   }
 
-  await mkdir(dirname(SCRIPT_PATH), { recursive: true });
+  run('npm', ['run', 'build']);
+  await createStagingAppSource();
+
   await rm(APP_PATH, { recursive: true, force: true });
+  run('/usr/bin/ditto', [ELECTRON_TEMPLATE_APP, APP_PATH]);
+  await rm(join(APP_RESOURCES_DIR, 'default_app.asar'), { force: true });
+  await rm(APP_SOURCE_DIR, { recursive: true, force: true });
+  await cp(STAGING_DIR, APP_SOURCE_DIR, { recursive: true });
+  await cp(ICON_PATH, join(APP_RESOURCES_DIR, 'game-of-type.icns'));
+  await rename(ELECTRON_EXECUTABLE, APP_EXECUTABLE);
 
-  const appleScript = `
-on run
-  set projectPath to "${quoteAppleScript(ROOT_DIR)}"
-  set launchCommand to "cd " & quoted form of projectPath & " && PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin npm run electron > /tmp/game-of-type.log 2>&1 &"
-  do shell script launchCommand
-end run
-`;
-
-  await writeFile(SCRIPT_PATH, appleScript.trimStart(), 'utf8');
-
-  const result = spawnSync('osacompile', ['-o', APP_PATH, SCRIPT_PATH], {
-    cwd: ROOT_DIR,
-    encoding: 'utf8',
-  });
-
-  if (result.status !== 0) {
-    throw new Error(result.stderr || result.stdout || 'osacompile failed');
-  }
+  setPlist('CFBundleName', 'Game of Type');
+  setPlist('CFBundleDisplayName', 'Game of Type');
+  setPlist('CFBundleExecutable', 'Game of Type');
+  setPlist('CFBundleIdentifier', 'local.game-of-type');
+  setPlist('CFBundleIconFile', 'game-of-type.icns');
 
   await linkDesktopApp();
 

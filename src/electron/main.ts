@@ -12,6 +12,8 @@ export function resolveAppRoot() {
   return process.cwd();
 }
 
+app.setName('Game of Type');
+
 export async function startLocalServer(rootDir = resolveAppRoot()): Promise<LocalServerInfo> {
   const server = createDevServer({
     rootDir,
@@ -69,7 +71,7 @@ async function main() {
 void main();
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  app.quit();
 });
 
 app.on('activate', () => {
