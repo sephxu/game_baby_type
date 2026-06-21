@@ -151,7 +151,7 @@
       position: fixed;
       top: 0;
       right: 0;
-      width: 250px;
+      width: min(300px, 86vw);
       height: 100vh;
       background: white;
       box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
@@ -175,6 +175,70 @@
       border-radius: 0.4rem;
       border: 1px solid #ccc;
       font-size: 0.9rem;
+    }
+
+    #parent-panel .custom-word-section {
+      margin-top: 0.2rem;
+    }
+
+    #parent-panel .custom-word-section label {
+      margin-bottom: 0.35rem;
+      font-size: 0.9rem;
+      color: #665a4f;
+    }
+
+    #parent-panel .custom-word-row {
+      display: flex;
+      gap: 0.4rem;
+      width: 100%;
+    }
+
+    #custom-word-input {
+      min-width: 0;
+      flex: 1;
+      padding: 0.45rem 0.55rem;
+      border: 1px solid #d8cabe;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      color: #5a4a40;
+      background: #fffaf3;
+    }
+
+    #custom-word-add {
+      padding: 0.45rem 0.65rem;
+      border: 1px solid #b9d6dc;
+      border-radius: 0.5rem;
+      color: #3f6f7a;
+      background: #edf8fa;
+      font-size: 0.9rem;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    #custom-word-add:disabled {
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    #custom-word-add:active:not(:disabled) {
+      background: #dff1f5;
+    }
+
+    #parent-panel .custom-word-status {
+      min-height: 1.1rem;
+      margin-top: 0.35rem;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: #8a7a6a;
+    }
+
+    #parent-panel .custom-word-status.error {
+      color: #b24d4d;
+    }
+
+    #parent-panel .custom-word-status.success {
+      color: #4d8757;
     }
 
     #parent-panel .panel-divider {
@@ -413,6 +477,14 @@
           <option value="emoji">Emoji</option>
         </select>
       </label>
+      <div class="custom-word-section">
+        <label for="custom-word-input">Add Word</label>
+        <div class="custom-word-row">
+          <input id="custom-word-input" type="text" autocomplete="off" placeholder="Blanket">
+          <button id="custom-word-add" type="button">Add</button>
+        </div>
+        <div id="custom-word-status" class="custom-word-status" aria-live="polite"></div>
+      </div>
       <hr class="panel-divider">
       <button class="reset-btn" id="flower-reset">Reset Flowers</button>
     </div>
@@ -848,6 +920,9 @@
     const CHALLENGE_TRIGGER = 15 + Math.floor(Math.random() * 6); // 15-20
 
     document.addEventListener('keydown', (e) => {
+      if (e.target.closest && e.target.closest('#parent-panel input, #parent-panel button, #parent-panel select')) {
+        return;
+      }
       e.preventDefault();
       const isRepeat = e.repeat;
       const now = Date.now();
@@ -1385,6 +1460,59 @@
       if (challengeActive) {
         clearTimeout(challengeTimer);
         endChallenge(false);
+      }
+    });
+
+    // 开发模式：把家长新增的单词提交给本地服务，供后续资源生成流程读取。
+    const customWordInput = document.getElementById('custom-word-input');
+    const customWordAdd = document.getElementById('custom-word-add');
+    const customWordStatus = document.getElementById('custom-word-status');
+
+    function setCustomWordStatus(message, kind) {
+      customWordStatus.textContent = message;
+      customWordStatus.classList.toggle('success', kind === 'success');
+      customWordStatus.classList.toggle('error', kind === 'error');
+    }
+
+    async function submitCustomWord() {
+      const word = customWordInput.value.trim().replace(/\s+/g, ' ');
+      if (!word) {
+        setCustomWordStatus('Enter a word first.', 'error');
+        return;
+      }
+
+      customWordAdd.disabled = true;
+      setCustomWordStatus('Saving...', '');
+      try {
+        const response = await fetch('/api/pending-words', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ word, library: currentLibrary }),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || 'Unable to save word.');
+        if (result.status === 'duplicate') {
+          setCustomWordStatus(`${word} is already waiting.`, 'success');
+          return;
+        }
+        customWordInput.value = '';
+        setCustomWordStatus(`${word} saved for Codex.`, 'success');
+      } catch (error) {
+        setCustomWordStatus('Start with: node scripts/dev_server.mjs', 'error');
+      } finally {
+        customWordAdd.disabled = false;
+      }
+    }
+
+    customWordAdd.addEventListener('click', (e) => {
+      e.stopPropagation();
+      submitCustomWord();
+    });
+
+    customWordInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitCustomWord();
       }
     });
 
