@@ -20,6 +20,16 @@
         "word": "Alligator",
         "sentence": "A big alligator.",
         "spoken": "A ... Alligator. A big alligator."
+      },
+      {
+        "word": "Airplane",
+        "sentence": "An airplane flies.",
+        "spoken": "A ... Airplane. An airplane flies."
+      },
+      {
+        "word": "Avocado",
+        "sentence": "A green avocado.",
+        "spoken": "A ... Avocado. A green avocado."
       }
     ],
     "b": [
@@ -42,6 +52,31 @@
         "word": "Baby",
         "sentence": "A little baby.",
         "spoken": "B ... Baby. A little baby."
+      },
+      {
+        "word": "Bird",
+        "sentence": "A bird sings.",
+        "spoken": "B ... Bird. A bird sings."
+      },
+      {
+        "word": "Bus",
+        "sentence": "A yellow bus.",
+        "spoken": "B ... Bus. A yellow bus."
+      },
+      {
+        "word": "Bear",
+        "sentence": "A big bear.",
+        "spoken": "B ... Bear. A big bear."
+      },
+      {
+        "word": "Butterfly",
+        "sentence": "A pretty butterfly.",
+        "spoken": "B ... Butterfly. A pretty butterfly."
+      },
+      {
+        "word": "Bat",
+        "sentence": "A little bat flies.",
+        "spoken": "B ... Bat. A little bat flies."
       }
     ],
     "c": [
@@ -64,6 +99,16 @@
         "word": "Cookie",
         "sentence": "A yummy cookie.",
         "spoken": "C ... Cookie. A yummy cookie."
+      },
+      {
+        "word": "Cake",
+        "sentence": "A birthday cake.",
+        "spoken": "C ... Cake. A birthday cake."
+      },
+      {
+        "word": "Cow",
+        "sentence": "A cow says moo.",
+        "spoken": "C ... Cow. A cow says moo."
       }
     ],
     "d": [
@@ -86,6 +131,11 @@
         "word": "Door",
         "sentence": "Open the door.",
         "spoken": "D ... Door. Open the door."
+      },
+      {
+        "word": "Dinosaur",
+        "sentence": "A big dinosaur.",
+        "spoken": "D ... Dinosaur. A big dinosaur."
       }
     ],
     "e": [
@@ -174,6 +224,11 @@
         "word": "Horse",
         "sentence": "A horse says neigh.",
         "spoken": "H ... Horse. A horse says neigh."
+      },
+      {
+        "word": "Hen",
+        "sentence": "A hen clucks.",
+        "spoken": "H ... Hen. A hen clucks."
       }
     ],
     "i": [
@@ -240,6 +295,16 @@
         "word": "Kiss",
         "sentence": "Give a kiss.",
         "spoken": "K ... Kiss. Give a kiss."
+      },
+      {
+        "word": "Kangaroo",
+        "sentence": "A kangaroo hops.",
+        "spoken": "K ... Kangaroo. A kangaroo hops."
+      },
+      {
+        "word": "Koala",
+        "sentence": "A koala in a tree.",
+        "spoken": "K ... Koala. A koala in a tree."
       }
     ],
     "l": [
@@ -262,6 +327,11 @@
         "word": "Love",
         "sentence": "I love you.",
         "spoken": "L ... Love. I love you."
+      },
+      {
+        "word": "Ladybug",
+        "sentence": "A red ladybug.",
+        "spoken": "L ... Ladybug. A red ladybug."
       }
     ],
     "m": [
@@ -350,6 +420,16 @@
         "word": "Pizza",
         "sentence": "Yummy pizza.",
         "spoken": "P ... Pizza. Yummy pizza."
+      },
+      {
+        "word": "Panda",
+        "sentence": "A black and white panda.",
+        "spoken": "P ... Panda. A black and white panda."
+      },
+      {
+        "word": "Peach",
+        "sentence": "A sweet peach.",
+        "spoken": "P ... Peach. A sweet peach."
       }
     ],
     "q": [
@@ -389,6 +469,11 @@
         "word": "Rain",
         "sentence": "The rain falls.",
         "spoken": "R ... Rain. The rain falls."
+      },
+      {
+        "word": "Rocket",
+        "sentence": "A rocket to the moon.",
+        "spoken": "R ... Rocket. A rocket to the moon."
       }
     ],
     "s": [
@@ -411,6 +496,21 @@
         "word": "Shoe",
         "sentence": "Put on your shoe.",
         "spoken": "S ... Shoe. Put on your shoe."
+      },
+      {
+        "word": "Sheep",
+        "sentence": "A sheep says baa.",
+        "spoken": "S ... Sheep. A sheep says baa."
+      },
+      {
+        "word": "Strawberry",
+        "sentence": "A red strawberry.",
+        "spoken": "S ... Strawberry. A red strawberry."
+      },
+      {
+        "word": "Snail",
+        "sentence": "A slow snail crawls.",
+        "spoken": "S ... Snail. A slow snail crawls."
       }
     ],
     "t": [
@@ -433,6 +533,16 @@
         "word": "Train",
         "sentence": "A choo choo train.",
         "spoken": "T ... Train. A choo choo train."
+      },
+      {
+        "word": "Tomato",
+        "sentence": "A red tomato.",
+        "spoken": "T ... Tomato. A red tomato."
+      },
+      {
+        "word": "Turtle",
+        "sentence": "A slow turtle.",
+        "spoken": "T ... Turtle. A slow turtle."
       }
     ],
     "u": [
@@ -499,6 +609,11 @@
         "word": "Walk",
         "sentence": "Go for a walk.",
         "spoken": "W ... Walk. Go for a walk."
+      },
+      {
+        "word": "Watermelon",
+        "sentence": "A slice of watermelon.",
+        "spoken": "W ... Watermelon. A slice of watermelon."
       }
     ],
     "x": [
@@ -579,16 +694,6 @@
         "word": "Alligator",
         "sentence": "",
         "spoken": "A ... Alligator"
-      },
-      {
-        "word": "Airplane",
-        "sentence": "An airplane flies.",
-        "spoken": "A ... Airplane. An airplane flies."
-      },
-      {
-        "word": "Avocado",
-        "sentence": "A green avocado.",
-        "spoken": "A ... Avocado. A green avocado."
       }
     ],
     "b": [
@@ -616,26 +721,6 @@
         "word": "Bus",
         "sentence": "",
         "spoken": "B ... Bus"
-      },
-      {
-        "word": "Bird",
-        "sentence": "A bird sings.",
-        "spoken": "B ... Bird. A bird sings."
-      },
-      {
-        "word": "Bus",
-        "sentence": "A yellow bus.",
-        "spoken": "B ... Bus. A yellow bus."
-      },
-      {
-        "word": "Bear",
-        "sentence": "A big bear.",
-        "spoken": "B ... Bear. A big bear."
-      },
-      {
-        "word": "Butterfly",
-        "sentence": "A pretty butterfly.",
-        "spoken": "B ... Butterfly. A pretty butterfly."
       }
     ],
     "c": [
@@ -663,16 +748,6 @@
         "word": "Cookie",
         "sentence": "",
         "spoken": "C ... Cookie"
-      },
-      {
-        "word": "Cake",
-        "sentence": "A birthday cake.",
-        "spoken": "C ... Cake. A birthday cake."
-      },
-      {
-        "word": "Cow",
-        "sentence": "A cow says moo.",
-        "spoken": "C ... Cow. A cow says moo."
       }
     ],
     "d": [
@@ -700,11 +775,6 @@
         "word": "Donut",
         "sentence": "",
         "spoken": "D ... Donut"
-      },
-      {
-        "word": "Dinosaur",
-        "sentence": "A big dinosaur.",
-        "spoken": "D ... Dinosaur. A big dinosaur."
       }
     ],
     "e": [
@@ -808,11 +878,6 @@
         "word": "Hen",
         "sentence": "",
         "spoken": "H ... Hen"
-      },
-      {
-        "word": "Hen",
-        "sentence": "A hen clucks.",
-        "spoken": "H ... Hen. A hen clucks."
       }
     ],
     "i": [
@@ -874,16 +939,6 @@
         "word": "Kangaroo",
         "sentence": "",
         "spoken": "K ... Kangaroo"
-      },
-      {
-        "word": "Kangaroo",
-        "sentence": "A kangaroo hops.",
-        "spoken": "K ... Kangaroo. A kangaroo hops."
-      },
-      {
-        "word": "Koala",
-        "sentence": "A koala in a tree.",
-        "spoken": "K ... Koala. A koala in a tree."
       }
     ],
     "l": [
@@ -911,11 +966,6 @@
         "word": "Lollipop",
         "sentence": "",
         "spoken": "L ... Lollipop"
-      },
-      {
-        "word": "Ladybug",
-        "sentence": "A red ladybug.",
-        "spoken": "L ... Ladybug. A red ladybug."
       }
     ],
     "m": [
@@ -1009,16 +1059,6 @@
         "word": "Peach",
         "sentence": "",
         "spoken": "P ... Peach"
-      },
-      {
-        "word": "Panda",
-        "sentence": "A black and white panda.",
-        "spoken": "P ... Panda. A black and white panda."
-      },
-      {
-        "word": "Peach",
-        "sentence": "A sweet peach.",
-        "spoken": "P ... Peach. A sweet peach."
       }
     ],
     "q": [
@@ -1058,11 +1098,6 @@
         "word": "Robot",
         "sentence": "",
         "spoken": "R ... Robot"
-      },
-      {
-        "word": "Rocket",
-        "sentence": "A rocket to the moon.",
-        "spoken": "R ... Rocket. A rocket to the moon."
       }
     ],
     "s": [
@@ -1090,16 +1125,6 @@
         "word": "Sheep",
         "sentence": "",
         "spoken": "S ... Sheep"
-      },
-      {
-        "word": "Sheep",
-        "sentence": "A sheep says baa.",
-        "spoken": "S ... Sheep. A sheep says baa."
-      },
-      {
-        "word": "Strawberry",
-        "sentence": "A red strawberry.",
-        "spoken": "S ... Strawberry. A red strawberry."
       }
     ],
     "t": [
@@ -1127,16 +1152,6 @@
         "word": "Tomato",
         "sentence": "",
         "spoken": "T ... Tomato"
-      },
-      {
-        "word": "Tomato",
-        "sentence": "A red tomato.",
-        "spoken": "T ... Tomato. A red tomato."
-      },
-      {
-        "word": "Turtle",
-        "sentence": "A slow turtle.",
-        "spoken": "T ... Turtle. A slow turtle."
       }
     ],
     "u": [
@@ -1188,11 +1203,6 @@
         "word": "Worm",
         "sentence": "",
         "spoken": "W ... Worm"
-      },
-      {
-        "word": "Watermelon",
-        "sentence": "A slice of watermelon.",
-        "spoken": "W ... Watermelon. A slice of watermelon."
       }
     ],
     "x": [
