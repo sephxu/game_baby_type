@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp } from 'node:fs/promises';
+import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createDevServer } from './dev_server.mjs';
@@ -45,6 +45,36 @@ test('dev server accepts pending word JSON submissions', async () => {
     assert.equal(data.words.length, 1);
     assert.equal(data.words[0].word, 'Blanket');
     assert.equal(data.words[0].library, 'bluey');
+  } finally {
+    await close(server);
+  }
+});
+
+test('dev server can prefer built renderer files and fall back to project assets', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'game-static-roots-'));
+  const distDir = join(dir, 'dist');
+  const rootAssetDir = join(dir, 'assets', 'bluey');
+  await mkdir(distDir, { recursive: true });
+  await mkdir(rootAssetDir, { recursive: true });
+  await writeFile(join(dir, 'index.html'), 'source index', 'utf8');
+  await writeFile(join(distDir, 'index.html'), 'built index', 'utf8');
+  await writeFile(join(rootAssetDir, 'apple.txt'), 'apple asset', 'utf8');
+
+  const server = createDevServer({
+    rootDir: dir,
+    staticDirs: [distDir, dir],
+    pendingFile: join(dir, 'pending-words.json'),
+  });
+
+  const port = await listen(server);
+  try {
+    const indexResponse = await fetch(`http://127.0.0.1:${port}/index.html`);
+    assert.equal(indexResponse.status, 200);
+    assert.equal(await indexResponse.text(), 'built index');
+
+    const assetResponse = await fetch(`http://127.0.0.1:${port}/assets/bluey/apple.txt`);
+    assert.equal(assetResponse.status, 200);
+    assert.equal(await assetResponse.text(), 'apple asset');
   } finally {
     await close(server);
   }

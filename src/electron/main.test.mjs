@@ -28,3 +28,10 @@ test('electron launch script points at the compiled main process', async () => {
   assert.equal(pkg.main, 'dist-electron/src/electron/main.js');
   assert.match(pkg.scripts.electron, /electron dist-electron\/src\/electron\/main\.js/);
 });
+
+test('development app root is the project working directory', async () => {
+  const source = await readFile(sourcePath, 'utf8');
+
+  assert.match(source, /return process\.cwd\(\)/);
+  assert.doesNotMatch(source, /return resolve\(__dirname, '\.\.\/\.\.'\)/);
+});

@@ -62,29 +62,38 @@ function resolveStaticPath(rootDir, pathname) {
   return absolute;
 }
 
-async function serveStatic(rootDir, req, res, pathname) {
-  const filePath = resolveStaticPath(rootDir, pathname);
-  if (!filePath) {
+async function serveStatic(rootDirs, req, res, pathname) {
+  const candidatePaths = rootDirs.map(rootDir => resolveStaticPath(rootDir, pathname));
+  if (candidatePaths.some(filePath => filePath === null)) {
     res.writeHead(403);
     res.end('Forbidden');
     return;
   }
 
-  try {
-    const info = await stat(filePath);
-    if (!info.isFile()) throw Object.assign(new Error('not found'), { code: 'ENOENT' });
-    res.writeHead(200, {
-      'Content-Type': MIME_TYPES[extname(filePath).toLowerCase()] || 'application/octet-stream',
-    });
-    createReadStream(filePath).pipe(res);
-  } catch (error) {
-    res.writeHead(error.code === 'ENOENT' ? 404 : 500);
-    res.end(error.code === 'ENOENT' ? 'Not Found' : 'Server Error');
+  for (const filePath of candidatePaths) {
+    try {
+      const info = await stat(filePath);
+      if (!info.isFile()) throw Object.assign(new Error('not found'), { code: 'ENOENT' });
+      res.writeHead(200, {
+        'Content-Type': MIME_TYPES[extname(filePath).toLowerCase()] || 'application/octet-stream',
+      });
+      createReadStream(filePath).pipe(res);
+      return;
+    } catch (error) {
+      if (error.code === 'ENOENT') continue;
+      res.writeHead(500);
+      res.end('Server Error');
+      return;
+    }
   }
+
+  res.writeHead(404);
+  res.end('Not Found');
 }
 
 export function createDevServer(options = {}) {
   const rootDir = toPath(options.rootDir || ROOT_DIR);
+  const staticDirs = (options.staticDirs || [rootDir]).map(toPath);
   const pendingFile = toPath(options.pendingFile || join(rootDir, 'data', 'pending-words.json'));
 
   return createServer(async (req, res) => {
@@ -111,7 +120,7 @@ export function createDevServer(options = {}) {
         return;
       }
 
-      await serveStatic(rootDir, req, res, url.pathname);
+      await serveStatic(staticDirs, req, res, url.pathname);
     } catch (error) {
       sendJson(res, error.message === 'word is required' ? 400 : 500, { error: error.message });
     }
@@ -126,7 +135,7 @@ export function parsePort(args = process.argv.slice(2)) {
   return DEFAULT_PORT;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const port = parsePort();
   const server = createDevServer();
   server.listen(port, () => {

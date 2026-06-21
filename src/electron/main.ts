@@ -1,6 +1,5 @@
 import { app, BrowserWindow } from 'electron';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join, resolve } from 'node:path';
 import { createDevServer } from '../../scripts/dev_server.mjs';
 
 type LocalServerInfo = {
@@ -8,15 +7,16 @@ type LocalServerInfo = {
   url: string;
 };
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 export function resolveAppRoot() {
   if (app.isPackaged) return resolve(process.resourcesPath, 'app');
-  return resolve(__dirname, '../..');
+  return process.cwd();
 }
 
 export async function startLocalServer(rootDir = resolveAppRoot()): Promise<LocalServerInfo> {
-  const server = createDevServer({ rootDir });
+  const server = createDevServer({
+    rootDir,
+    staticDirs: [join(rootDir, 'dist'), rootDir],
+  });
   const port = await new Promise<number>((resolvePort, reject) => {
     server.once('error', reject);
     server.listen(0, '127.0.0.1', () => {
