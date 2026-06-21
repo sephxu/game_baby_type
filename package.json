@@ -10,7 +10,8 @@
     "build": "vite build && npm run build:electron",
     "build:electron": "tsc -p tsconfig.electron.json",
     "electron": "npm run build:electron && electron dist-electron/main.js",
-    "electron:check": "npm run build:electron && node --import tsx --test src/electron/main.test.mjs"
+    "electron:check": "npm run build:electron && node --import tsx --test src/electron/main.test.mjs",
+    "app:mac": "node scripts/create_macos_app.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.19.24",
