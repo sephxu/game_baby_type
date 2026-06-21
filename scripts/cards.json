@@ -1,0 +1,1230 @@
+{
+  "bluey": {
+    "a": [
+      {
+        "word": "Apple",
+        "sentence": "A red apple.",
+        "spoken": "A ... Apple. A red apple."
+      },
+      {
+        "word": "Arm",
+        "sentence": "Wave your arm.",
+        "spoken": "A ... Arm. Wave your arm."
+      },
+      {
+        "word": "Ant",
+        "sentence": "A little ant.",
+        "spoken": "A ... Ant. A little ant."
+      },
+      {
+        "word": "Alligator",
+        "sentence": "A big alligator.",
+        "spoken": "A ... Alligator. A big alligator."
+      }
+    ],
+    "b": [
+      {
+        "word": "Bluey",
+        "sentence": "This is Bluey.",
+        "spoken": "B ... Bluey. This is Bluey."
+      },
+      {
+        "word": "Ball",
+        "sentence": "Bounce the ball.",
+        "spoken": "B ... Ball. Bounce the ball."
+      },
+      {
+        "word": "Banana",
+        "sentence": "A yellow banana.",
+        "spoken": "B ... Banana. A yellow banana."
+      },
+      {
+        "word": "Baby",
+        "sentence": "A little baby.",
+        "spoken": "B ... Baby. A little baby."
+      }
+    ],
+    "c": [
+      {
+        "word": "Cat",
+        "sentence": "A cat says meow.",
+        "spoken": "C ... Cat. A cat says meow."
+      },
+      {
+        "word": "Car",
+        "sentence": "A little red car.",
+        "spoken": "C ... Car. A little red car."
+      },
+      {
+        "word": "Cup",
+        "sentence": "Drink from a cup.",
+        "spoken": "C ... Cup. Drink from a cup."
+      },
+      {
+        "word": "Cookie",
+        "sentence": "A yummy cookie.",
+        "spoken": "C ... Cookie. A yummy cookie."
+      }
+    ],
+    "d": [
+      {
+        "word": "Dad",
+        "sentence": "Dad is here.",
+        "spoken": "D ... Dad. Dad is here."
+      },
+      {
+        "word": "Dog",
+        "sentence": "A dog says woof.",
+        "spoken": "D ... Dog. A dog says woof."
+      },
+      {
+        "word": "Duck",
+        "sentence": "A duck says quack.",
+        "spoken": "D ... Duck. A duck says quack."
+      },
+      {
+        "word": "Door",
+        "sentence": "Open the door.",
+        "spoken": "D ... Door. Open the door."
+      }
+    ],
+    "e": [
+      {
+        "word": "Egg",
+        "sentence": "A little egg.",
+        "spoken": "E ... Egg. A little egg."
+      },
+      {
+        "word": "Ear",
+        "sentence": "We hear with our ears.",
+        "spoken": "E ... Ear. We hear with our ears."
+      },
+      {
+        "word": "Eye",
+        "sentence": "We see with our eyes.",
+        "spoken": "E ... Eye. We see with our eyes."
+      },
+      {
+        "word": "Elephant",
+        "sentence": "A big elephant.",
+        "spoken": "E ... Elephant. A big elephant."
+      }
+    ],
+    "f": [
+      {
+        "word": "Fish",
+        "sentence": "A fish swims.",
+        "spoken": "F ... Fish. A fish swims."
+      },
+      {
+        "word": "Frog",
+        "sentence": "A green frog.",
+        "spoken": "F ... Frog. A green frog."
+      },
+      {
+        "word": "Flower",
+        "sentence": "A pretty flower.",
+        "spoken": "F ... Flower. A pretty flower."
+      },
+      {
+        "word": "Foot",
+        "sentence": "Stomp your foot.",
+        "spoken": "F ... Foot. Stomp your foot."
+      }
+    ],
+    "g": [
+      {
+        "word": "Goat",
+        "sentence": "A goat says maa.",
+        "spoken": "G ... Goat. A goat says maa."
+      },
+      {
+        "word": "Giraffe",
+        "sentence": "A tall giraffe.",
+        "spoken": "G ... Giraffe. A tall giraffe."
+      },
+      {
+        "word": "Gift",
+        "sentence": "A birthday gift.",
+        "spoken": "G ... Gift. A birthday gift."
+      },
+      {
+        "word": "Grapes",
+        "sentence": "Purple grapes.",
+        "spoken": "G ... Grapes. Purple grapes."
+      }
+    ],
+    "h": [
+      {
+        "word": "Hat",
+        "sentence": "Wear a hat.",
+        "spoken": "H ... Hat. Wear a hat."
+      },
+      {
+        "word": "Hand",
+        "sentence": "Clap your hands.",
+        "spoken": "H ... Hand. Clap your hands."
+      },
+      {
+        "word": "House",
+        "sentence": "Our cozy house.",
+        "spoken": "H ... House. Our cozy house."
+      },
+      {
+        "word": "Horse",
+        "sentence": "A horse says neigh.",
+        "spoken": "H ... Horse. A horse says neigh."
+      }
+    ],
+    "i": [
+      {
+        "word": "Ice",
+        "sentence": "Ice is cold.",
+        "spoken": "I ... Ice. Ice is cold."
+      },
+      {
+        "word": "Indy",
+        "sentence": "Indy is a friend.",
+        "spoken": "I ... Indy. Indy is a friend."
+      },
+      {
+        "word": "Ice Cream",
+        "sentence": "Yummy ice cream.",
+        "spoken": "I ... Ice Cream. Yummy ice cream."
+      },
+      {
+        "word": "Igloo",
+        "sentence": "A little igloo.",
+        "spoken": "I ... Igloo. A little igloo."
+      }
+    ],
+    "j": [
+      {
+        "word": "Juice",
+        "sentence": "A glass of juice.",
+        "spoken": "J ... Juice. A glass of juice."
+      },
+      {
+        "word": "Jump",
+        "sentence": "Jump up high!",
+        "spoken": "J ... Jump. Jump up high!"
+      },
+      {
+        "word": "Jam",
+        "sentence": "Strawberry jam.",
+        "spoken": "J ... Jam. Strawberry jam."
+      },
+      {
+        "word": "Jellyfish",
+        "sentence": "A jellyfish in the sea.",
+        "spoken": "J ... Jellyfish. A jellyfish in the sea."
+      }
+    ],
+    "k": [
+      {
+        "word": "Kite",
+        "sentence": "Fly a kite.",
+        "spoken": "K ... Kite. Fly a kite."
+      },
+      {
+        "word": "Key",
+        "sentence": "A shiny key.",
+        "spoken": "K ... Key. A shiny key."
+      },
+      {
+        "word": "Kitten",
+        "sentence": "A little kitten.",
+        "spoken": "K ... Kitten. A little kitten."
+      },
+      {
+        "word": "Kiss",
+        "sentence": "Give a kiss.",
+        "spoken": "K ... Kiss. Give a kiss."
+      }
+    ],
+    "l": [
+      {
+        "word": "Lion",
+        "sentence": "A lion roars.",
+        "spoken": "L ... Lion. A lion roars."
+      },
+      {
+        "word": "Leaf",
+        "sentence": "A green leaf.",
+        "spoken": "L ... Leaf. A green leaf."
+      },
+      {
+        "word": "Lemon",
+        "sentence": "A sour lemon.",
+        "spoken": "L ... Lemon. A sour lemon."
+      },
+      {
+        "word": "Love",
+        "sentence": "I love you.",
+        "spoken": "L ... Love. I love you."
+      }
+    ],
+    "m": [
+      {
+        "word": "Milk",
+        "sentence": "Drink your milk.",
+        "spoken": "M ... Milk. Drink your milk."
+      },
+      {
+        "word": "Mom",
+        "sentence": "Mom is here.",
+        "spoken": "M ... Mom. Mom is here."
+      },
+      {
+        "word": "Moon",
+        "sentence": "The moon at night.",
+        "spoken": "M ... Moon. The moon at night."
+      },
+      {
+        "word": "Monkey",
+        "sentence": "A monkey climbs.",
+        "spoken": "M ... Monkey. A monkey climbs."
+      }
+    ],
+    "n": [
+      {
+        "word": "Nose",
+        "sentence": "We smell with our nose.",
+        "spoken": "N ... Nose. We smell with our nose."
+      },
+      {
+        "word": "Nest",
+        "sentence": "A bird's nest.",
+        "spoken": "N ... Nest. A bird's nest."
+      },
+      {
+        "word": "Nap",
+        "sentence": "Take a nap.",
+        "spoken": "N ... Nap. Take a nap."
+      },
+      {
+        "word": "Nanna",
+        "sentence": "Nanna gives hugs.",
+        "spoken": "N ... Nanna. Nanna gives hugs."
+      }
+    ],
+    "o": [
+      {
+        "word": "Orange",
+        "sentence": "An orange fruit.",
+        "spoken": "O ... Orange. An orange fruit."
+      },
+      {
+        "word": "Owl",
+        "sentence": "An owl says hoo.",
+        "spoken": "O ... Owl. An owl says hoo."
+      },
+      {
+        "word": "Open",
+        "sentence": "Open the box.",
+        "spoken": "O ... Open. Open the box."
+      },
+      {
+        "word": "Ocean",
+        "sentence": "The big blue ocean.",
+        "spoken": "O ... Ocean. The big blue ocean."
+      }
+    ],
+    "p": [
+      {
+        "word": "Pig",
+        "sentence": "A pig says oink.",
+        "spoken": "P ... Pig. A pig says oink."
+      },
+      {
+        "word": "Penguin",
+        "sentence": "A little penguin.",
+        "spoken": "P ... Penguin. A little penguin."
+      },
+      {
+        "word": "Pants",
+        "sentence": "Put on your pants.",
+        "spoken": "P ... Pants. Put on your pants."
+      },
+      {
+        "word": "Pizza",
+        "sentence": "Yummy pizza.",
+        "spoken": "P ... Pizza. Yummy pizza."
+      }
+    ],
+    "q": [
+      {
+        "word": "Queen",
+        "sentence": "A queen has a crown.",
+        "spoken": "Q ... Queen. A queen has a crown."
+      },
+      {
+        "word": "Quiet",
+        "sentence": "Be quiet, please.",
+        "spoken": "Q ... Quiet. Be quiet, please."
+      },
+      {
+        "word": "Quack",
+        "sentence": "The duck says quack.",
+        "spoken": "Q ... Quack. The duck says quack."
+      }
+    ],
+    "r": [
+      {
+        "word": "Robot",
+        "sentence": "A friendly robot.",
+        "spoken": "R ... Robot. A friendly robot."
+      },
+      {
+        "word": "Rabbit",
+        "sentence": "A rabbit hops.",
+        "spoken": "R ... Rabbit. A rabbit hops."
+      },
+      {
+        "word": "Rainbow",
+        "sentence": "A colorful rainbow.",
+        "spoken": "R ... Rainbow. A colorful rainbow."
+      },
+      {
+        "word": "Rain",
+        "sentence": "The rain falls.",
+        "spoken": "R ... Rain. The rain falls."
+      }
+    ],
+    "s": [
+      {
+        "word": "Sun",
+        "sentence": "The sun is bright.",
+        "spoken": "S ... Sun. The sun is bright."
+      },
+      {
+        "word": "Star",
+        "sentence": "A star in the sky.",
+        "spoken": "S ... Star. A star in the sky."
+      },
+      {
+        "word": "Socks",
+        "sentence": "Wear your socks.",
+        "spoken": "S ... Socks. Wear your socks."
+      },
+      {
+        "word": "Shoe",
+        "sentence": "Put on your shoe.",
+        "spoken": "S ... Shoe. Put on your shoe."
+      }
+    ],
+    "t": [
+      {
+        "word": "Tree",
+        "sentence": "A big green tree.",
+        "spoken": "T ... Tree. A big green tree."
+      },
+      {
+        "word": "Tiger",
+        "sentence": "A tiger has stripes.",
+        "spoken": "T ... Tiger. A tiger has stripes."
+      },
+      {
+        "word": "Tooth",
+        "sentence": "Brush your tooth.",
+        "spoken": "T ... Tooth. Brush your tooth."
+      },
+      {
+        "word": "Train",
+        "sentence": "A choo choo train.",
+        "spoken": "T ... Train. A choo choo train."
+      }
+    ],
+    "u": [
+      {
+        "word": "Up",
+        "sentence": "Look up high!",
+        "spoken": "U ... Up. Look up high!"
+      },
+      {
+        "word": "Uncle",
+        "sentence": "Uncle visits.",
+        "spoken": "U ... Uncle. Uncle visits."
+      },
+      {
+        "word": "Umbrella",
+        "sentence": "An umbrella in the rain.",
+        "spoken": "U ... Umbrella. An umbrella in the rain."
+      },
+      {
+        "word": "Unicorn",
+        "sentence": "A magical unicorn.",
+        "spoken": "U ... Unicorn. A magical unicorn."
+      }
+    ],
+    "v": [
+      {
+        "word": "Van",
+        "sentence": "A big van.",
+        "spoken": "V ... Van. A big van."
+      },
+      {
+        "word": "Veggie",
+        "sentence": "Eat your veggies.",
+        "spoken": "V ... Veggie. Eat your veggies."
+      },
+      {
+        "word": "Vest",
+        "sentence": "Wear a vest.",
+        "spoken": "V ... Vest. Wear a vest."
+      },
+      {
+        "word": "Voice",
+        "sentence": "Sing with your voice.",
+        "spoken": "V ... Voice. Sing with your voice."
+      }
+    ],
+    "w": [
+      {
+        "word": "Water",
+        "sentence": "Drink some water.",
+        "spoken": "W ... Water. Drink some water."
+      },
+      {
+        "word": "Whale",
+        "sentence": "A big whale.",
+        "spoken": "W ... Whale. A big whale."
+      },
+      {
+        "word": "Wash",
+        "sentence": "Wash your hands.",
+        "spoken": "W ... Wash. Wash your hands."
+      },
+      {
+        "word": "Walk",
+        "sentence": "Go for a walk.",
+        "spoken": "W ... Walk. Go for a walk."
+      }
+    ],
+    "x": [
+      {
+        "word": "X-ray",
+        "sentence": "An x-ray of a bone.",
+        "spoken": "X ... X-ray. An x-ray of a bone."
+      },
+      {
+        "word": "Xylophone",
+        "sentence": "Play the xylophone.",
+        "spoken": "X ... Xylophone. Play the xylophone."
+      }
+    ],
+    "y": [
+      {
+        "word": "Yawn",
+        "sentence": "A big yawn.",
+        "spoken": "Y ... Yawn. A big yawn."
+      },
+      {
+        "word": "Yellow",
+        "sentence": "The sun is yellow.",
+        "spoken": "Y ... Yellow. The sun is yellow."
+      },
+      {
+        "word": "Yes",
+        "sentence": "Yes, please!",
+        "spoken": "Y ... Yes. Yes, please!"
+      },
+      {
+        "word": "Yummy",
+        "sentence": "Yummy food!",
+        "spoken": "Y ... Yummy. Yummy food!"
+      }
+    ],
+    "z": [
+      {
+        "word": "Zebra",
+        "sentence": "A zebra has stripes.",
+        "spoken": "Z ... Zebra. A zebra has stripes."
+      },
+      {
+        "word": "Zoo",
+        "sentence": "Animals at the zoo.",
+        "spoken": "Z ... Zoo. Animals at the zoo."
+      },
+      {
+        "word": "Zip",
+        "sentence": "Zip up your jacket.",
+        "spoken": "Z ... Zip. Zip up your jacket."
+      }
+    ]
+  },
+  "emoji": {
+    "a": [
+      {
+        "word": "Apple",
+        "sentence": "",
+        "spoken": "A ... Apple"
+      },
+      {
+        "word": "Ant",
+        "sentence": "",
+        "spoken": "A ... Ant"
+      },
+      {
+        "word": "Airplane",
+        "sentence": "",
+        "spoken": "A ... Airplane"
+      },
+      {
+        "word": "Avocado",
+        "sentence": "",
+        "spoken": "A ... Avocado"
+      },
+      {
+        "word": "Alligator",
+        "sentence": "",
+        "spoken": "A ... Alligator"
+      },
+      {
+        "word": "Airplane",
+        "sentence": "An airplane flies.",
+        "spoken": "A ... Airplane. An airplane flies."
+      },
+      {
+        "word": "Avocado",
+        "sentence": "A green avocado.",
+        "spoken": "A ... Avocado. A green avocado."
+      }
+    ],
+    "b": [
+      {
+        "word": "Bear",
+        "sentence": "",
+        "spoken": "B ... Bear"
+      },
+      {
+        "word": "Banana",
+        "sentence": "",
+        "spoken": "B ... Banana"
+      },
+      {
+        "word": "Bird",
+        "sentence": "",
+        "spoken": "B ... Bird"
+      },
+      {
+        "word": "Butterfly",
+        "sentence": "",
+        "spoken": "B ... Butterfly"
+      },
+      {
+        "word": "Bus",
+        "sentence": "",
+        "spoken": "B ... Bus"
+      },
+      {
+        "word": "Bird",
+        "sentence": "A bird sings.",
+        "spoken": "B ... Bird. A bird sings."
+      },
+      {
+        "word": "Bus",
+        "sentence": "A yellow bus.",
+        "spoken": "B ... Bus. A yellow bus."
+      },
+      {
+        "word": "Bear",
+        "sentence": "A big bear.",
+        "spoken": "B ... Bear. A big bear."
+      },
+      {
+        "word": "Butterfly",
+        "sentence": "A pretty butterfly.",
+        "spoken": "B ... Butterfly. A pretty butterfly."
+      }
+    ],
+    "c": [
+      {
+        "word": "Cat",
+        "sentence": "",
+        "spoken": "C ... Cat"
+      },
+      {
+        "word": "Car",
+        "sentence": "",
+        "spoken": "C ... Car"
+      },
+      {
+        "word": "Cake",
+        "sentence": "",
+        "spoken": "C ... Cake"
+      },
+      {
+        "word": "Cow",
+        "sentence": "",
+        "spoken": "C ... Cow"
+      },
+      {
+        "word": "Cookie",
+        "sentence": "",
+        "spoken": "C ... Cookie"
+      },
+      {
+        "word": "Cake",
+        "sentence": "A birthday cake.",
+        "spoken": "C ... Cake. A birthday cake."
+      },
+      {
+        "word": "Cow",
+        "sentence": "A cow says moo.",
+        "spoken": "C ... Cow. A cow says moo."
+      }
+    ],
+    "d": [
+      {
+        "word": "Dog",
+        "sentence": "",
+        "spoken": "D ... Dog"
+      },
+      {
+        "word": "Duck",
+        "sentence": "",
+        "spoken": "D ... Duck"
+      },
+      {
+        "word": "Dolphin",
+        "sentence": "",
+        "spoken": "D ... Dolphin"
+      },
+      {
+        "word": "Dinosaur",
+        "sentence": "",
+        "spoken": "D ... Dinosaur"
+      },
+      {
+        "word": "Donut",
+        "sentence": "",
+        "spoken": "D ... Donut"
+      },
+      {
+        "word": "Dinosaur",
+        "sentence": "A big dinosaur.",
+        "spoken": "D ... Dinosaur. A big dinosaur."
+      }
+    ],
+    "e": [
+      {
+        "word": "Elephant",
+        "sentence": "",
+        "spoken": "E ... Elephant"
+      },
+      {
+        "word": "Egg",
+        "sentence": "",
+        "spoken": "E ... Egg"
+      },
+      {
+        "word": "Eagle",
+        "sentence": "",
+        "spoken": "E ... Eagle"
+      },
+      {
+        "word": "Eye",
+        "sentence": "",
+        "spoken": "E ... Eye"
+      }
+    ],
+    "f": [
+      {
+        "word": "Fish",
+        "sentence": "",
+        "spoken": "F ... Fish"
+      },
+      {
+        "word": "Frog",
+        "sentence": "",
+        "spoken": "F ... Frog"
+      },
+      {
+        "word": "Flower",
+        "sentence": "",
+        "spoken": "F ... Flower"
+      },
+      {
+        "word": "Fox",
+        "sentence": "",
+        "spoken": "F ... Fox"
+      },
+      {
+        "word": "Flamingo",
+        "sentence": "",
+        "spoken": "F ... Flamingo"
+      }
+    ],
+    "g": [
+      {
+        "word": "Grape",
+        "sentence": "",
+        "spoken": "G ... Grape"
+      },
+      {
+        "word": "Giraffe",
+        "sentence": "",
+        "spoken": "G ... Giraffe"
+      },
+      {
+        "word": "Goat",
+        "sentence": "",
+        "spoken": "G ... Goat"
+      },
+      {
+        "word": "Ghost",
+        "sentence": "",
+        "spoken": "G ... Ghost"
+      },
+      {
+        "word": "Gorilla",
+        "sentence": "",
+        "spoken": "G ... Gorilla"
+      }
+    ],
+    "h": [
+      {
+        "word": "Horse",
+        "sentence": "",
+        "spoken": "H ... Horse"
+      },
+      {
+        "word": "House",
+        "sentence": "",
+        "spoken": "H ... House"
+      },
+      {
+        "word": "Heart",
+        "sentence": "",
+        "spoken": "H ... Heart"
+      },
+      {
+        "word": "Hippo",
+        "sentence": "",
+        "spoken": "H ... Hippo"
+      },
+      {
+        "word": "Hen",
+        "sentence": "",
+        "spoken": "H ... Hen"
+      },
+      {
+        "word": "Hen",
+        "sentence": "A hen clucks.",
+        "spoken": "H ... Hen. A hen clucks."
+      }
+    ],
+    "i": [
+      {
+        "word": "Ice Cream",
+        "sentence": "",
+        "spoken": "I ... Ice Cream"
+      },
+      {
+        "word": "Iguana",
+        "sentence": "",
+        "spoken": "I ... Iguana"
+      },
+      {
+        "word": "Insect",
+        "sentence": "",
+        "spoken": "I ... Insect"
+      }
+    ],
+    "j": [
+      {
+        "word": "Jellyfish",
+        "sentence": "",
+        "spoken": "J ... Jellyfish"
+      },
+      {
+        "word": "Juice",
+        "sentence": "",
+        "spoken": "J ... Juice"
+      },
+      {
+        "word": "Joker",
+        "sentence": "",
+        "spoken": "J ... Joker"
+      }
+    ],
+    "k": [
+      {
+        "word": "Kite",
+        "sentence": "",
+        "spoken": "K ... Kite"
+      },
+      {
+        "word": "Koala",
+        "sentence": "",
+        "spoken": "K ... Koala"
+      },
+      {
+        "word": "Key",
+        "sentence": "",
+        "spoken": "K ... Key"
+      },
+      {
+        "word": "King",
+        "sentence": "",
+        "spoken": "K ... King"
+      },
+      {
+        "word": "Kangaroo",
+        "sentence": "",
+        "spoken": "K ... Kangaroo"
+      },
+      {
+        "word": "Kangaroo",
+        "sentence": "A kangaroo hops.",
+        "spoken": "K ... Kangaroo. A kangaroo hops."
+      },
+      {
+        "word": "Koala",
+        "sentence": "A koala in a tree.",
+        "spoken": "K ... Koala. A koala in a tree."
+      }
+    ],
+    "l": [
+      {
+        "word": "Lion",
+        "sentence": "",
+        "spoken": "L ... Lion"
+      },
+      {
+        "word": "Leaf",
+        "sentence": "",
+        "spoken": "L ... Leaf"
+      },
+      {
+        "word": "Lemon",
+        "sentence": "",
+        "spoken": "L ... Lemon"
+      },
+      {
+        "word": "Ladybug",
+        "sentence": "",
+        "spoken": "L ... Ladybug"
+      },
+      {
+        "word": "Lollipop",
+        "sentence": "",
+        "spoken": "L ... Lollipop"
+      },
+      {
+        "word": "Ladybug",
+        "sentence": "A red ladybug.",
+        "spoken": "L ... Ladybug. A red ladybug."
+      }
+    ],
+    "m": [
+      {
+        "word": "Moon",
+        "sentence": "",
+        "spoken": "M ... Moon"
+      },
+      {
+        "word": "Monkey",
+        "sentence": "",
+        "spoken": "M ... Monkey"
+      },
+      {
+        "word": "Mouse",
+        "sentence": "",
+        "spoken": "M ... Mouse"
+      },
+      {
+        "word": "Milk",
+        "sentence": "",
+        "spoken": "M ... Milk"
+      },
+      {
+        "word": "Mushroom",
+        "sentence": "",
+        "spoken": "M ... Mushroom"
+      }
+    ],
+    "n": [
+      {
+        "word": "Nut",
+        "sentence": "",
+        "spoken": "N ... Nut"
+      },
+      {
+        "word": "Nose",
+        "sentence": "",
+        "spoken": "N ... Nose"
+      },
+      {
+        "word": "Nest",
+        "sentence": "",
+        "spoken": "N ... Nest"
+      }
+    ],
+    "o": [
+      {
+        "word": "Octopus",
+        "sentence": "",
+        "spoken": "O ... Octopus"
+      },
+      {
+        "word": "Orange",
+        "sentence": "",
+        "spoken": "O ... Orange"
+      },
+      {
+        "word": "Owl",
+        "sentence": "",
+        "spoken": "O ... Owl"
+      },
+      {
+        "word": "Otter",
+        "sentence": "",
+        "spoken": "O ... Otter"
+      }
+    ],
+    "p": [
+      {
+        "word": "Penguin",
+        "sentence": "",
+        "spoken": "P ... Penguin"
+      },
+      {
+        "word": "Pig",
+        "sentence": "",
+        "spoken": "P ... Pig"
+      },
+      {
+        "word": "Pizza",
+        "sentence": "",
+        "spoken": "P ... Pizza"
+      },
+      {
+        "word": "Panda",
+        "sentence": "",
+        "spoken": "P ... Panda"
+      },
+      {
+        "word": "Peach",
+        "sentence": "",
+        "spoken": "P ... Peach"
+      },
+      {
+        "word": "Panda",
+        "sentence": "A black and white panda.",
+        "spoken": "P ... Panda. A black and white panda."
+      },
+      {
+        "word": "Peach",
+        "sentence": "A sweet peach.",
+        "spoken": "P ... Peach. A sweet peach."
+      }
+    ],
+    "q": [
+      {
+        "word": "Queen",
+        "sentence": "",
+        "spoken": "Q ... Queen"
+      },
+      {
+        "word": "Quail",
+        "sentence": "",
+        "spoken": "Q ... Quail"
+      }
+    ],
+    "r": [
+      {
+        "word": "Rainbow",
+        "sentence": "",
+        "spoken": "R ... Rainbow"
+      },
+      {
+        "word": "Rabbit",
+        "sentence": "",
+        "spoken": "R ... Rabbit"
+      },
+      {
+        "word": "Rocket",
+        "sentence": "",
+        "spoken": "R ... Rocket"
+      },
+      {
+        "word": "Rose",
+        "sentence": "",
+        "spoken": "R ... Rose"
+      },
+      {
+        "word": "Robot",
+        "sentence": "",
+        "spoken": "R ... Robot"
+      },
+      {
+        "word": "Rocket",
+        "sentence": "A rocket to the moon.",
+        "spoken": "R ... Rocket. A rocket to the moon."
+      }
+    ],
+    "s": [
+      {
+        "word": "Sun",
+        "sentence": "",
+        "spoken": "S ... Sun"
+      },
+      {
+        "word": "Star",
+        "sentence": "",
+        "spoken": "S ... Star"
+      },
+      {
+        "word": "Snake",
+        "sentence": "",
+        "spoken": "S ... Snake"
+      },
+      {
+        "word": "Strawberry",
+        "sentence": "",
+        "spoken": "S ... Strawberry"
+      },
+      {
+        "word": "Sheep",
+        "sentence": "",
+        "spoken": "S ... Sheep"
+      },
+      {
+        "word": "Sheep",
+        "sentence": "A sheep says baa.",
+        "spoken": "S ... Sheep. A sheep says baa."
+      },
+      {
+        "word": "Strawberry",
+        "sentence": "A red strawberry.",
+        "spoken": "S ... Strawberry. A red strawberry."
+      }
+    ],
+    "t": [
+      {
+        "word": "Tiger",
+        "sentence": "",
+        "spoken": "T ... Tiger"
+      },
+      {
+        "word": "Tree",
+        "sentence": "",
+        "spoken": "T ... Tree"
+      },
+      {
+        "word": "Train",
+        "sentence": "",
+        "spoken": "T ... Train"
+      },
+      {
+        "word": "Turtle",
+        "sentence": "",
+        "spoken": "T ... Turtle"
+      },
+      {
+        "word": "Tomato",
+        "sentence": "",
+        "spoken": "T ... Tomato"
+      },
+      {
+        "word": "Tomato",
+        "sentence": "A red tomato.",
+        "spoken": "T ... Tomato. A red tomato."
+      },
+      {
+        "word": "Turtle",
+        "sentence": "A slow turtle.",
+        "spoken": "T ... Turtle. A slow turtle."
+      }
+    ],
+    "u": [
+      {
+        "word": "Umbrella",
+        "sentence": "",
+        "spoken": "U ... Umbrella"
+      },
+      {
+        "word": "Unicorn",
+        "sentence": "",
+        "spoken": "U ... Unicorn"
+      }
+    ],
+    "v": [
+      {
+        "word": "Violin",
+        "sentence": "",
+        "spoken": "V ... Violin"
+      },
+      {
+        "word": "Volcano",
+        "sentence": "",
+        "spoken": "V ... Volcano"
+      },
+      {
+        "word": "Van",
+        "sentence": "",
+        "spoken": "V ... Van"
+      }
+    ],
+    "w": [
+      {
+        "word": "Whale",
+        "sentence": "",
+        "spoken": "W ... Whale"
+      },
+      {
+        "word": "Watermelon",
+        "sentence": "",
+        "spoken": "W ... Watermelon"
+      },
+      {
+        "word": "Wolf",
+        "sentence": "",
+        "spoken": "W ... Wolf"
+      },
+      {
+        "word": "Worm",
+        "sentence": "",
+        "spoken": "W ... Worm"
+      },
+      {
+        "word": "Watermelon",
+        "sentence": "A slice of watermelon.",
+        "spoken": "W ... Watermelon. A slice of watermelon."
+      }
+    ],
+    "x": [
+      {
+        "word": "Xylophone",
+        "sentence": "",
+        "spoken": "X ... Xylophone"
+      }
+    ],
+    "y": [
+      {
+        "word": "Yarn",
+        "sentence": "",
+        "spoken": "Y ... Yarn"
+      },
+      {
+        "word": "Yo-yo",
+        "sentence": "",
+        "spoken": "Y ... Yo-yo"
+      }
+    ],
+    "z": [
+      {
+        "word": "Zebra",
+        "sentence": "",
+        "spoken": "Z ... Zebra"
+      },
+      {
+        "word": "Zap",
+        "sentence": "",
+        "spoken": "Z ... Zap"
+      }
+    ]
+  }
+}
