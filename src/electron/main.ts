@@ -55,7 +55,18 @@ async function createWindow() {
   await win.loadURL(serverInfo.url);
 }
 
-app.whenReady().then(createWindow);
+async function main() {
+  if (process.argv.includes('--check')) {
+    console.log('Electron main check ok.');
+    process.exit(0);
+    return;
+  }
+
+  await app.whenReady();
+  await createWindow();
+}
+
+void main();
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

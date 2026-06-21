@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const sourcePath = new URL('./main.ts', import.meta.url);
+const packageUrl = new URL('../../package.json', import.meta.url);
 
 test('electron main starts the existing local dev server on loopback', async () => {
   const source = await readFile(sourcePath, 'utf8');
@@ -11,4 +12,12 @@ test('electron main starts the existing local dev server on loopback', async () 
   assert.match(source, /export async function startLocalServer/);
   assert.match(source, /127\.0\.0\.1/);
   assert.match(source, /loadURL\(serverInfo\.url\)/);
+  assert.match(source, /--check/);
+});
+
+test('electron check script loads the main process with Electron runtime', async () => {
+  const pkg = JSON.parse(await readFile(packageUrl, 'utf8'));
+
+  assert.match(pkg.scripts['electron:check'], /electron --version/);
+  assert.match(pkg.scripts['electron:check'], /node --import tsx --test src\/electron\/main\.test\.mjs/);
 });
