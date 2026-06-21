@@ -21,3 +21,10 @@ test('electron check script loads the main process with Electron runtime', async
   assert.match(pkg.scripts['electron:check'], /electron --version/);
   assert.match(pkg.scripts['electron:check'], /node --import tsx --test src\/electron\/main\.test\.mjs/);
 });
+
+test('electron launch script points at the compiled main process', async () => {
+  const pkg = JSON.parse(await readFile(packageUrl, 'utf8'));
+
+  assert.equal(pkg.main, 'dist-electron/src/electron/main.js');
+  assert.match(pkg.scripts.electron, /electron dist-electron\/src\/electron\/main\.js/);
+});
