@@ -772,6 +772,31 @@
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
+    // —— 每个字母维护一个洗牌轮换池：连按时单词随机，但一轮内不重复 ——
+    // 池子用完自动开启下一轮（重新洗牌），并尽量避免与上一轮最后一个相同。
+    const roundState = {}; // key -> { order: number[], pos: number, last: number }
+    function pickCard(key) {
+      const cards = vocabCards(key);
+      if (!cards) return null;
+      let st = roundState[key];
+      if (!st || st.pos >= st.order.length) {
+        const order = cards.map((_, i) => i);
+        for (let i = order.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [order[i], order[j]] = [order[j], order[i]];
+        }
+        // 新一轮的首个尽量不等于上一轮最后一个，避免连续重复
+        if (st && st.last !== undefined && order[0] === st.last && order.length > 1) {
+          [order[0], order[1]] = [order[1], order[0]];
+        }
+        st = { order, pos: 0, last: st ? st.last : undefined };
+        roundState[key] = st;
+      }
+      const idx = st.order[st.pos++];
+      st.last = idx;
+      return cards[idx];
+    }
+
     const NUMBER_MAP = {
       0: { emoji: '🌟', word: 'Zero', zh: '零' },
       1: { emoji: '🌈', word: 'One', zh: '一' },
@@ -962,7 +987,10 @@
     function loadVoice() {
       const voices = speechSynthesis.getVoices();
       if (!voices.length) return;
+      // 布鲁伊是澳洲动画，优先用澳大利亚英语口音，更贴合主题也更自然
       preferredVoiceEn =
+        voices.find(v => v.lang === 'en-AU' && v.localService) ||
+        voices.find(v => v.lang === 'en-AU') ||
         voices.find(v => v.lang === 'en-US' && v.name.includes('Samantha')) ||
         voices.find(v => v.lang === 'en-US' && v.localService) ||
         voices.find(v => v.lang.startsWith('en-') && v.localService) ||
@@ -979,14 +1007,13 @@
     loadVoice();
 
     let isSpeaking = false;
+    let pendingSpeech = null; // 连按时暂存的最新一条待朗读内容（最新优先，旧的丢弃）
 
     function speak(text) {
-      if (isMuted || isSpeaking) return;
       speakSequence([{ text, lang: 'en-US' }]);
     }
 
     function speakBilingual(zhText, enText) {
-      if (isMuted || isSpeaking) return;
       speakSequence([
         { text: zhText, lang: 'zh-CN' },
         { text: enText, lang: 'en-US' }
@@ -994,29 +1021,47 @@
     }
 
     function speakSequence(items) {
-      if (!items.length) return;
+      if (isMuted || !items.length) return;
+      // 正在朗读时，不丢弃当前这一句（避免连按把句子切成碎片），而是把最新的一次暂存，
+      // 等当前读完再读它。暂存槽只保留最新一条，连按多次也只补读最后一次。
+      if (isSpeaking) {
+        pendingSpeech = items;
+        return;
+      }
+      runSpeech(items);
+    }
+
+    function runSpeech(items) {
       try {
         isSpeaking = true;
         speechSynthesis.cancel();
         const queue = [...items];
 
         function next() {
-          if (!queue.length) { isSpeaking = false; return; }
+          if (!queue.length) {
+            isSpeaking = false;
+            if (pendingSpeech) {
+              const p = pendingSpeech;
+              pendingSpeech = null;
+              runSpeech(p);
+            }
+            return;
+          }
           const item = queue.shift();
           const u = new SpeechSynthesisUtterance(item.text);
           u.lang = item.lang;
-          u.rate = 0.8;
-          u.pitch = 1.1;
-          u.volume = 0.7;
+          u.rate = 0.85;
+          u.pitch = 1.15;
+          u.volume = 0.8;
           if (item.lang.startsWith('zh') && preferredVoiceZh) u.voice = preferredVoiceZh;
           if (item.lang.startsWith('en') && preferredVoiceEn) u.voice = preferredVoiceEn;
           u.onend = next;
-          u.onerror = () => { isSpeaking = false; };
+          u.onerror = () => { isSpeaking = false; pendingSpeech = null; };
           speechSynthesis.speak(u);
         }
 
         next();
-      } catch (e) { isSpeaking = false; }
+      } catch (e) { isSpeaking = false; pendingSpeech = null; }
     }
 
     const challengeOverlay = document.getElementById('challenge-overlay');
@@ -1183,7 +1228,7 @@
     }
 
     function showLetterCard(key, isRepeat = false, forcedData = null) {
-      const data = forcedData || randomPick(vocabCards(key));
+      const data = forcedData || pickCard(key);
       letterEl.textContent = key.toUpperCase();
       letterEl.style.color = data.color;
       // 配图：有 image 显示图片，否则回退 emoji
@@ -1291,7 +1336,8 @@
     librarySelect.value = currentLibrary;
     librarySelect.addEventListener('change', (e) => {
       currentLibrary = librarySelect.value;
-      // 切换库时若正在挑战，结束当前挑战以避免数据不一致
+      // 切换库时清空各字母的轮换池，并结束当前挑战以避免数据不一致
+      for (const k in roundState) delete roundState[k];
       if (challengeActive) {
         clearTimeout(challengeTimer);
         endChallenge(false);
